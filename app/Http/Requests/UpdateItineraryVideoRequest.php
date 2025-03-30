@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBlogContentImageRequest extends FormRequest
+class UpdateItineraryVideoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class StoreBlogContentImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "blog_slug" => "required|unique:blog_content_images,blog_slug",
-            'images' => "nullable",
-            'images_files.*' => 'required|image|max:2048'
+            'itinerary_id' => 'sometimes|string|unique:itinerary_video,itinerary_id,' . $this->route('itinerary_video')->id,
+            'video_url' => 'nullable|string',
+            'video_file' => 'sometimes|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska|max:20480',
         ];
     }
 }

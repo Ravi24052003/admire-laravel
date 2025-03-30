@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard_layout.app')
 
 @section('content')
 <div class="container py-4">
@@ -22,7 +22,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th width="5%">ID</th>
+                            <th width="5%">S no.</th>
                             <th>Blog Slug</th>
                             <th>Images Count</th>
                             <th>Created At</th>
@@ -30,15 +30,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($images as $item)
+                        @forelse($images as  $index => $item)
                         <tr>
-                            <td>{{ $item->id }}</td>
+                            <td>{{ $index+1 }}</td>
                             <td>
                                 <a href="{{ route('blog-content-images.show', $item->id) }}">
                                     {{ $item->blog_slug }}
                                 </a>
                             </td>
-                            <td>{{ count(json_decode($item->images)) }}</td>
+                            <td>{{ count($item->images) }}</td>
                             <td>{{ $item->created_at->format('d M Y') }}</td>
                             <td class="text-nowrap">
                                 <a href="{{ route('blog-content-images.edit', $item->id) }}" 

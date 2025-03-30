@@ -11,7 +11,7 @@ class UpdateBlogContentImageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateBlogContentImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "blog_slug" => "sometimes|unique:blog_content_images,blog_slug," . $this->route('blog_content_image')->id,
+            'images' => "nullable",
+            'images_files.*' => 'sometimes|image|max:2048'
         ];
     }
 }

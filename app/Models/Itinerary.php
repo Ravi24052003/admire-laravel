@@ -20,4 +20,12 @@ class Itinerary extends Model
         'status_flags' => 'array',
         'destination_images' => 'array'
     ];
+
+
+    public function video()
+{
+    return $this->hasOne(ItineraryVideo::class, 'itinerary_id');
+}
+
+
 }

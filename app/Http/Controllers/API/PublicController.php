@@ -14,11 +14,13 @@ class PublicController extends Controller
 {
 
     public function getParticularItinerary($slug){
-      $itinerary = Itinerary::where('slug', $slug)->firstOrFail();
+        $itinerary = Itinerary::with('video')->where('slug', $slug)->firstOrFail();
 
-return response()->json($itinerary,200)->header('Access-Control-Allow-Origin', '*')
- ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
- ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        // This will automatically include the video in the JSON response
+        return response()->json($itinerary, 200)
+            ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     }
 
 

@@ -18,7 +18,7 @@ class BlogContentImageController extends Controller
     {
         $images = BlogContentImage::all();
 
-        return view('blog-content-image.index', compact('images'));
+        return view('blog_content_images.index', compact('images'));
     }
 
     /**
@@ -28,7 +28,7 @@ class BlogContentImageController extends Controller
     {
         $blogs = Blog::all();
 
-        return view('blog-content-image.create', compact('blogs'));
+        return view('blog_content_images.create', compact('blogs'));
     }
 
     /**
@@ -58,34 +58,33 @@ class BlogContentImageController extends Controller
 
         BlogContentImage::create($data);
 
-        return redirect()->route('blogs.index')
+        return redirect()->route('blog-content-images.index')
         ->with('success', 'Blog created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(BlogContentImage $blog_content_image)
     {
-        $blog = Blog::findOrFail($id);
 
-        return view("blog", compact("blog"));
+        return view("blog_content_images.show", compact("blog_content_image"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(BlogContentImage $blog_content_image)
     {
-        $blog = Blog::findOrFail($id);
+        $blogs = Blog::all();
 
-        return view("edit-blog", compact("blog"));
+        return view("blog_content_images.edit", compact("blog_content_image", "blogs"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBlogContentImageRequest $request, BlogContentImage $blogContentImage)
+    public function update(UpdateBlogContentImageRequest $request, BlogContentImage $blog_content_image)
     {
         $data = $request->validated();
         $directory = public_path('blog_content_images');
@@ -93,8 +92,8 @@ class BlogContentImageController extends Controller
          // Handle destination_images update
          if ($request->hasFile("images_files")) {
             // Delete old images if they exist
-            if (!empty($blogContentImage->images)){
-                $oldImages = $blogContentImage->images;
+            if (!empty($blog_content_image->images)){
+                $oldImages = $blog_content_image->images;
                 foreach ($oldImages as $oldImagePath){
                     $fullPath = public_path($oldImagePath);
                     if (file_exists($fullPath)){
@@ -119,23 +118,21 @@ class BlogContentImageController extends Controller
             "images_files"
         ]);
 
-        $blogContentImage->update($data);
+        $blog_content_image->update($data);
 
-        return response()->json([
-            'success' => 'Blog Content Images updated successfully',
-            'blog_content_image' => $blogContentImage,
-        ], 200);
+        return redirect()->route('blog-content-images.index')
+        ->with('success', 'Blog Updated successfully.');
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BlogContentImage $blogContentImage)
+    public function destroy(BlogContentImage $blog_content_image)
     {
         // Delete images if they exist
-        if (!empty($blogContentImage->images)) {
-            $images = $blogContentImage->images;
+        if (!empty($blog_content_image->images)) {
+            $images = $blog_content_image->images;
             foreach ($images as $imagePath) {
                 $fullPath = public_path($imagePath);
                 if (file_exists($fullPath)) {
@@ -144,8 +141,9 @@ class BlogContentImageController extends Controller
             }
         }
 
-        $blogContentImage->delete();
+        $blog_content_image->delete();
 
-        return response()->json(['success' => 'blog content images deleted successfully'], 200);
+        return view("blog_content_images.index");
     }
+    
 }

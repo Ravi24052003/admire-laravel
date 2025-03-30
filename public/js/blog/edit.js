@@ -6,17 +6,6 @@ document.addEventListener("DOMContentLoaded", function(){
         height: 400
         });
 
-
-        // if(destination){
-        //     setTimeout(() => {
-        //         $('#terms_and_conditions').summernote('code', destination.terms_and_conditions);
-        //     }, 0);
-        // }
-        // else{
-        //     $('#terms_and_conditions').summernote('reset');
-        //     alert("Didn't find terms and conditions for the selected destination");
-        // }
-
     document.getElementById('blog_slug').addEventListener('input', function() {
         const slugInput = this.value;
         const slugPreview = document.getElementById('slugPreview');
@@ -30,5 +19,41 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
+    window.copyImageUrl = function(url) {
+        // Use the modern Clipboard API if available
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(() => {
+                showFlashMessage(url);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                fallbackCopy(url);
+            });
+        } else {
+            fallbackCopy(url);
+        }
+    };
+
+    function fallbackCopy(url) {
+        // Fallback for older browsers
+        const tempInput = document.createElement('input');
+        tempInput.value = url;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showFlashMessage(url);
+    }
+
+    function showFlashMessage(url) {
+        const flashMessage = document.getElementById('flash-message');
+        const urlDisplay = document.querySelector('.copied-url');
+        
+        urlDisplay.innerHTML = `URL copied: <code>${url}</code>`;
+        flashMessage.classList.remove('d-none');
+        
+        setTimeout(() => {
+            flashMessage.classList.add('d-none');
+        }, 3000);
+    }
 
 });

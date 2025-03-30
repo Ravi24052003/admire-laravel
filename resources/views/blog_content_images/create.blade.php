@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard_layout.app')
 
 @section('content')
 <div class="container py-4">
@@ -6,20 +6,20 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Add New Blog Images</h4>
+                    <h4 class="mb-0">Create Blog Content Images</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('blog-content-images.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
-                            <label for="blog_slug" class="form-label">Blog Post *</label>
+                            <label for="blog_slug" class="form-label">Blog Posts</label>
                             <select class="form-select @error('blog_slug') is-invalid @enderror" 
                                     id="blog_slug" name="blog_slug" required>
                                 <option value="">-- Select Blog Post --</option>
-                                @foreach($blogPosts as $post)
-                                <option value="{{ $post->slug }}" @selected(old('blog_slug') == $post->slug)>
-                                    {{ $post->title }} ({{ $post->slug }})
+                                @foreach($blogs as $blog)
+                                <option value="{{ $blog->blog_slug }}" @selected(old('blog_slug') == $blog->blog_slug)>
+                                    {{ $blog->blog_title }} ({{ $blog->blog_slug }})
                                 </option>
                                 @endforeach
                             </select>

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogContentImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +82,10 @@ class BlogController extends Controller
     public function edit(Blog $blog)
     {   
         $categories = BlogCategory::all();
-        return view('blogs.edit', compact('blog', 'categories'));
+        
+        $blogContentImage = BlogContentImage::where("blog_slug", $blog->blog_slug)->first();
+
+        return view('blogs.edit', compact('blog', 'categories', 'blogContentImage'));
     }
 
 

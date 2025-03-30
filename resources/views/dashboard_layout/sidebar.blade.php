@@ -141,6 +141,13 @@
                                 <span class="sub-item">Payment Mode</span>
                             </a>
                         </li>
+
+
+                        <li>
+                            <a href="{{ route('itinerary-video.index') }}">
+                                <span class="sub-item">Itinerary Videos</span>
+                            </a>
+                        </li>
                         
                       </ul>
                   </div>
@@ -237,8 +244,12 @@
                             </a>
 
 
+                            <a href="{{ route('blog-content-images.index') }}">
+                                <span class="sub-item">Blog Content Images</span>
+                            </a>
+
                             <a href="{{ route('blog-categories.index') }}">
-                                <span class="sub-item">Blog Categoris</span>
+                                <span class="sub-item">Blog Categories</span>
                             </a>
 
                         </li>

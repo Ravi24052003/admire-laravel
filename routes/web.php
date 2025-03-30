@@ -10,6 +10,7 @@ use App\Http\Controllers\DestinationImageController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeroSectionVideoController;
 use App\Http\Controllers\ItineraryLocationDetailImageController;
+use App\Http\Controllers\ItineraryVideoController;
 use App\Http\Controllers\PaymentModeController;
 use App\Http\Controllers\SpecialNoteController;
 use App\Http\Controllers\TermsAndPolicyController;
@@ -59,6 +60,11 @@ Route::middleware("auth")->group(function(){
     Route::resource('blog-categories', BlogCategoryController::class);
 
     Route::resource('blog-content-images', BlogContentImageController::class);
+
+    Route::get('itinerary-video/create/{itinerary_id}', [ItineraryVideoController::class, 'create'])
+    ->name('itinerary-video.create');
+
+    Route::resource('itinerary-video', ItineraryVideoController::class)->except(['create']);
     
     Route::get('logout', [AuthController::class, "logout"])->name("dashboard.logout");
 

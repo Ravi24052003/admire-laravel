@@ -2,6 +2,31 @@
 
 @section('content')
     <div class="container">
+
+
+        <style>
+            .image-card {
+                transition: all 0.2s ease-in-out;
+                height: 100%;
+            }
+            
+            .image-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+            
+            .card-img-top {
+                border-bottom: 1px solid rgba(0,0,0,0.125);
+            }
+            </style>
+
+
+<div id="flash-message" class="alert alert-success d-none position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 9999;">
+    <span class="copied-url"></span>
+</div>
+
+
+
         <h1 class="mb-4">Edit Blog: {{ $blog->blog_title }}</h1>
 
         {{-- Display All Validation Errors --}}
@@ -14,6 +39,9 @@
                 </ul>
             </div>
         @endif
+
+
+       
 
         {{-- <div id="dBBlogData" data-blog-content="{{$blog->blog_content}}"></div> --}}
 
@@ -54,6 +82,36 @@
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Select Blog Content Images</label>
+                        <div class="row">
+                            @forelse ($blogContentImage->images ?? [] as $image)
+                                @php
+                                    $fullImageUrl = asset($image);
+                                @endphp
+                                <div class="col-md-3 mb-3">
+                                    <div class="card image-card" style="cursor: pointer;" onclick="copyImageUrl('{{ $fullImageUrl }}')">
+                                        <img src="{{ $fullImageUrl }}" class="card-img-top" alt="Blog image" style="height: 100px; object-fit: cover;">
+                                        <div class="card-body p-2">
+                                            <small class="text-muted text-truncate d-block" style="max-width: 100%;" title="{{ $fullImageUrl }}">
+                                                {{ basename($image) }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="col-12">
+                                    <p class="text-muted">No blog content images available</p>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+
+
 
                     <div class="mb-3">
                         <label for="blog_content" class="form-label">Content</label>

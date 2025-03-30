@@ -118,6 +118,11 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this itinerary?')">Delete</button>
                             </form>
+
+
+                            <a href="{{ route('itinerary-video.create', $itinerary->id) }}" class="btn btn-sm  btn-primary mb-4 mt-4">
+                                <i class="fas fa-plus"></i> Create Itinerary Video
+                            </a>
                         </td>
                     </tr>
                 @endforeach

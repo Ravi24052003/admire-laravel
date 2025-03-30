@@ -4,6 +4,9 @@
 <div class="container-fluid">
     <h1>Edit Itinerary</h1>
 
+    <a href="{{ route('itinerary-video.create', $itineraryResource->id) }}" class="btn btn-primary mb-4">
+        <i class="fas fa-plus"></i> Create Itinerary Video
+    </a>
 
     <form id="editItineraryForm" enctype="multipart/form-data">
         @csrf

@@ -3,6 +3,11 @@
 
 @section('content')
 <div class="container">
+
+    <a href="{{ route('itinerary-video.create', $itineraryResource->id) }}" class="btn btn-primary mb-4">
+        <i class="fas fa-plus"></i> Create Itinerary Video
+    </a>
+
     <h1>Itinerary Details</h1>
 
     <div class="card">
