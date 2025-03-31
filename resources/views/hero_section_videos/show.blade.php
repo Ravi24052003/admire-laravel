@@ -30,10 +30,10 @@
 
         <!-- Actions -->
         <div class="d-flex gap-2">
-            <a href="{{ route('selected-destination-video-banner.edit', $video->id) }}" class="btn btn-primary">
+            <a href="{{ route('hero-section-videos.edit', $video->id) }}" class="btn btn-primary">
                 <i class="fas fa-edit me-2"></i> Edit
             </a>
-            <form action="{{ route('selected-destination-video-banner.destroy', $video->id) }}" method="POST" class="d-inline">
+            <form action="{{ route('hero-section-videos.destroy', $video->id) }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">

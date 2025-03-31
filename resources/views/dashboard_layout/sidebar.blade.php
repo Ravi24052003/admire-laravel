@@ -172,6 +172,13 @@
                                 <span class="sub-item">Destination Video Banner</span>
                             </a>
                         </li>
+
+
+                        <li>
+                            <a href="{{ route('hero-section-videos.index') }}">
+                                <span class="sub-item">Hero Section Videos</span>
+                            </a>
+                        </li>
                       
                     </ul>
                 </div>

@@ -29,6 +29,8 @@
             <label for="use_in">Use In</label>
             <select name="use_in" id="use_in" class="form-control" required>
                 <option value="home">Home</option>
+                <option value="domestic">Domestic</option>
+                <option value="international">International</option>
                 <option value="about">about</option>
                 <option value="blog">Blog</option>
                 <option value="contact">Contact</option>

@@ -31,6 +31,9 @@
             <label for="use_in">Use In</label>
             <select name="use_in" id="use_in" class="form-control" required>
                 <option value="home" {{$video->use_in === 'home' ? 'selected' : ''}}>Home</option>
+                <option value="domestic" {{$video->use_in === 'domestic' ? 'selected' : ''}}>Domestic</option>
+                <option value="international" {{$video->use_in === 'international' ? 'selected' : ''}}>International</option>
+                <option value="home" {{$video->use_in === 'home' ? 'selected' : ''}}>Home</option>
                 <option value="about" {{$video->use_in === 'about' ? 'selected' : ''}}>about</option>
                 <option value="blog" {{$video->use_in === 'blog' ? 'selected' : ''}}>Blog</option>
                 <option value="contact" {{$video->use_in === 'contact' ? 'selected' : ''}}>Contact</option>

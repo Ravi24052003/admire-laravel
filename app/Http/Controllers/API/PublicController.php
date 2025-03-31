@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItineraryResource;
+use App\Models\Blog;
 use App\Models\DestinationImage;
 use App\Models\Gallery;
+use App\Models\HeroSectionVideo;
 use App\Models\Itinerary;
 use App\Models\SelectedDestinationVideoBanner;
 use App\Models\TermsAndCondition;
@@ -277,6 +279,28 @@ public function getInternationalDestinationsImages()
         ->header('Access-Control-Allow-Origin', '*')
         ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
         ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
+
+
+public function getHeroSectionPublicVideos(){
+    $videos = HeroSectionVideo::where('visibility', 'public')->get();
+
+    return response()->json($videos, 200)
+    ->header('Access-Control-Allow-Origin', '*')
+    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
+
+public function getPublicBlogs()
+{
+    $blogs = Blog::where('blog_visibility', 'public')->get();
+    return response()->json($blogs, 200)
+    ->header('Access-Control-Allow-Origin', '*')
+    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
 }
 
 

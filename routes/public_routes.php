@@ -28,3 +28,7 @@ Route::get('public-destination-images/{destination}', [PublicController::class, 
 Route::get('public-domestic-destinations-images', [PublicController::class, 'getDomesticDestinationsImages']);
 
 Route::get('public-international-destinations-images', [PublicController::class, 'getInternationalDestinationsImages']);
+
+Route::get('public-hero-section-videos', [PublicController::class, 'getHeroSectionPublicVideos']);
+
+Route::get('public-blogs', [PublicController::class, 'getPublicBlogs']);
