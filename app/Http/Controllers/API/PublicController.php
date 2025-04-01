@@ -296,12 +296,33 @@ public function getHeroSectionPublicVideos(){
 
 public function getPublicBlogs()
 {
-    $blogs = Blog::where('blog_visibility', 'public')->get();
+    $blogs = Blog::where('blog_visibility', 'public')
+    ->select([
+        'blog_title',
+        'blog_slug',
+        'blog_description',
+        'blog_author_name',
+        'blog_category',
+       'blog_image'
+    ])
+    ->get();
+
+
     return response()->json($blogs, 200)
     ->header('Access-Control-Allow-Origin', '*')
     ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
 
+
+public function getParticularBlog($slug)
+{
+$blog = Blog::where('blog_slug', $slug)->where('blog_visibility', 'public')->firstOrFail();
+
+return response()->json($blog, 200)
+->header('Access-Control-Allow-Origin', '*')
+->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
 
 public function getImageTextTestimonials()
