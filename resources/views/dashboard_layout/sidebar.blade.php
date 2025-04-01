@@ -266,6 +266,28 @@
             </li>
 
 
+
+            <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#testimonials">
+                    <i class="fas fa-comments"></i>
+
+                    <p>Testimonials</p>
+                    <span class="caret"></span>
+                </a>
+                <div class="collapse" id="testimonials">
+                    <ul class="nav nav-collapse">
+                        <li>
+                            <a href="{{ route('image-and-text-testimonials.index') }}">
+                                <span class="sub-item">Image and text testimonials</span>
+                            </a>
+
+                        </li>
+                      
+                    </ul>
+                </div>
+            </li>
+
+
           </ul>
       </div>
   </div>

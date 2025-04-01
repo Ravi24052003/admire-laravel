@@ -9,6 +9,7 @@ use App\Http\Controllers\CancellationPolicyController;
 use App\Http\Controllers\DestinationImageController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeroSectionVideoController;
+use App\Http\Controllers\ImageAndTextTestimonialController;
 use App\Http\Controllers\ItineraryLocationDetailImageController;
 use App\Http\Controllers\ItineraryVideoController;
 use App\Http\Controllers\PaymentModeController;
@@ -65,6 +66,8 @@ Route::middleware("auth")->group(function(){
     ->name('itinerary-video.create');
 
     Route::resource('itinerary-video', ItineraryVideoController::class)->except(['create']);
+
+    Route::resource('image-and-text-testimonials', ImageAndTextTestimonialController::class);
     
     Route::get('logout', [AuthController::class, "logout"])->name("dashboard.logout");
 

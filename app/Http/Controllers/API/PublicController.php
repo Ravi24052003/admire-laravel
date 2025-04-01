@@ -8,6 +8,7 @@ use App\Models\Blog;
 use App\Models\DestinationImage;
 use App\Models\Gallery;
 use App\Models\HeroSectionVideo;
+use App\Models\ImageAndTextTestimonial;
 use App\Models\Itinerary;
 use App\Models\SelectedDestinationVideoBanner;
 use App\Models\TermsAndCondition;
@@ -303,6 +304,15 @@ public function getPublicBlogs()
 
 }
 
+public function getImageTextTestimonials()
+{
+    $testimonials =   ImageAndTextTestimonial::where('visibility', 'public')->get();
 
+    return response()->json($testimonials, 200)
+    ->header('Access-Control-Allow-Origin', '*')
+    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+}
 
 }

@@ -59,7 +59,7 @@ class BlogContentImageController extends Controller
         BlogContentImage::create($data);
 
         return redirect()->route('blog-content-images.index')
-        ->with('success', 'Blog created successfully.');
+        ->with('success', 'Blog content images created successfully.');
     }
 
     /**
@@ -121,7 +121,7 @@ class BlogContentImageController extends Controller
         $blog_content_image->update($data);
 
         return redirect()->route('blog-content-images.index')
-        ->with('success', 'Blog Updated successfully.');
+        ->with('success', 'Blog content images Updated successfully.');
 
     }
 
@@ -143,7 +143,8 @@ class BlogContentImageController extends Controller
 
         $blog_content_image->delete();
 
-        return view("blog_content_images.index");
+        return redirect()->route('blog-content-images.index')
+        ->with('success', 'Blog content images deleted successfully.');
     }
     
 }
