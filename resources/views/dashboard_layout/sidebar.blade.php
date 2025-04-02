@@ -277,8 +277,13 @@
                 <div class="collapse" id="testimonials">
                     <ul class="nav nav-collapse">
                         <li>
+
                             <a href="{{ route('image-and-text-testimonials.index') }}">
                                 <span class="sub-item">Image and text testimonials</span>
+                            </a>
+
+                            <a href="{{ route('video-testimonials.index') }}">
+                                <span class="sub-item">Video testimonials</span>
                             </a>
 
                         </li>

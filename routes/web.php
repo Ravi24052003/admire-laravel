@@ -19,6 +19,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TermsAndConditionController;
 use App\Http\Controllers\VideoBannerController;
+use App\Http\Controllers\VideoTestimonialController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,6 +69,8 @@ Route::middleware("auth")->group(function(){
     Route::resource('itinerary-video', ItineraryVideoController::class)->except(['create']);
 
     Route::resource('image-and-text-testimonials', ImageAndTextTestimonialController::class);
+
+    Route::resource('video-testimonials', VideoTestimonialController::class);
     
     Route::get('logout', [AuthController::class, "logout"])->name("dashboard.logout");
 

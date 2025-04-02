@@ -36,3 +36,5 @@ Route::get('public-blog/{slug}', [PublicController::class, 'getParticularBlog'])
 Route::get('public-blogs', [PublicController::class, 'getPublicBlogs']);
 
 Route::get('public-image-text-testimonials', [PublicController::class, 'getImageTextTestimonials']);
+
+Route::get('public-video-testimonials', [PublicController::class, 'getVideoTestimonials']);

@@ -12,6 +12,7 @@ use App\Models\ImageAndTextTestimonial;
 use App\Models\Itinerary;
 use App\Models\SelectedDestinationVideoBanner;
 use App\Models\TermsAndCondition;
+use App\Models\VideoTestimonial;
 
 class PublicController extends Controller
 {
@@ -328,6 +329,18 @@ return response()->json($blog, 200)
 public function getImageTextTestimonials()
 {
     $testimonials =   ImageAndTextTestimonial::where('visibility', 'public')->get();
+
+    return response()->json($testimonials, 200)
+    ->header('Access-Control-Allow-Origin', '*')
+    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+}
+
+
+public function getVideoTestimonials()
+{
+    $testimonials =   VideoTestimonial::where('visibility', 'public')->get();
 
     return response()->json($testimonials, 200)
     ->header('Access-Control-Allow-Origin', '*')
