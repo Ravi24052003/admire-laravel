@@ -23,6 +23,7 @@ class UpdateVideoTestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'title' => 'required',
             'video_file' => 'sometimes|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska|max:20480',
             'visibility' => ['required', Rule::in(['private', 'public'])],
         ];

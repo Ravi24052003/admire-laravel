@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreVideoTestimonialRequest;
 use App\Http\Requests\UpdateVideoTestimonialRequest;
+use Illuminate\Http\Request;
 
 class VideoTestimonialController extends Controller
 {
@@ -24,6 +25,7 @@ class VideoTestimonialController extends Controller
     public function store(StoreVideoTestimonialRequest $request)
     {
         $data = $request->validated();
+
         $directory = public_path('video_testimonials');
 
         if ($request->hasFile('video_file')) {

@@ -24,6 +24,12 @@
                 <label>Visibility</label>
                 <p>{{ ucfirst($video_testimonial->visibility) }}</p>
             </div>
+
+
+            <div class="form-group">
+                <label>Title</label>
+                <p>{{$video_testimonial->title}}</p>
+            </div>
             
             <div class="form-group">
                 <label>Created At</label>

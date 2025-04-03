@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('video_testimonials', function (Blueprint $table) {
+        Schema::create('destinations', function (Blueprint $table) {
             $table->id();
-            $table->string('video_url');
-            $table->string('title');
-            $table->enum('visibility', ['private', 'public'])->default('private');
+            $table->enum('domestic_or_international', ['domestic', 'international']);
+            $table->string('destination_name')->unique();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('video_testimonials');
+        Schema::dropIfExists('destinations');
     }
 };

@@ -293,6 +293,34 @@
             </li>
 
 
+
+
+
+
+            <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#destinations">
+                    <i class="fas fa-map-marker-alt"></i>
+
+
+                    <p>Destinations</p>
+                    <span class="caret"></span>
+                </a>
+                <div class="collapse" id="destinations">
+                    <ul class="nav nav-collapse">
+                        <li>
+
+                            <a href="{{ route('destinations.index') }}">
+                                <span class="sub-item">Destinations</span>
+                            </a>
+
+                        </li>
+                      
+                    </ul>
+                </div>
+            </li>
+
+
+
           </ul>
       </div>
   </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogContentImageController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CancellationPolicyController;
+use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\DestinationImageController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeroSectionVideoController;
@@ -71,6 +72,8 @@ Route::middleware("auth")->group(function(){
     Route::resource('image-and-text-testimonials', ImageAndTextTestimonialController::class);
 
     Route::resource('video-testimonials', VideoTestimonialController::class);
+
+    Route::resource('destinations', DestinationController::class);
     
     Route::get('logout', [AuthController::class, "logout"])->name("dashboard.logout");
 

@@ -7,6 +7,14 @@
     <form action="{{ route('video-testimonials.update', $video_testimonial->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{$video_testimonial->title}}" required>
+            @error('title')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
         
         <div class="form-group">
             <label>Current Video</label>

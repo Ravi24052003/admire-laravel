@@ -19,6 +19,7 @@
             <thead>
                 <tr>
                     <th>Video</th>
+                    <th>Title</th>
                     <th>Visibility</th>
                     <th>Actions</th>
                 </tr>
@@ -34,6 +35,11 @@
                             </video>
                         @endif
                     </td>
+
+
+                    <td>{{$testimonial->title}}</td>
+
+
                     <td>{{ ucfirst($testimonial->visibility) }}</td>
                     <td>
                         <a href="{{ route('video-testimonials.show', $testimonial->id) }}" class="btn btn-info btn-sm">View</a>
