@@ -7,6 +7,7 @@ use App\Http\Requests\StoreItineraryRequest;
 use App\Http\Requests\UpdateItineraryRequest;
 use App\Http\Resources\ItineraryResource;
 use App\Models\CancellationPolicy;
+use App\Models\Destination;
 use App\Models\Itinerary;
 use App\Models\PaymentMode;
 use App\Models\SpecialNote;
@@ -67,17 +68,31 @@ class ItineraryController extends Controller
      /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        // Fetch all required data
-        $termsAndConditions = TermsAndCondition::all();
-        $specialNotes = SpecialNote::all(); // Replace with your actual model and query
-        $cancellationPolicies = CancellationPolicy::all(); // Replace with your actual model and query
-        $paymentModes = PaymentMode::all(); // Replace with your actual model and query
+    public function create(Request $request)
+{
+    // Fetch all required data
+    $termsAndConditions = TermsAndCondition::all();
+    $specialNotes = SpecialNote::all();
+    $cancellationPolicies = CancellationPolicy::all();
+    $paymentModes = PaymentMode::all();
+
+    // Get the selected type from request
+    $type = $request->query('domestic_or_international');
     
-        // Pass the data to the view
-        return view("itinerary.create", compact('termsAndConditions', 'specialNotes', 'cancellationPolicies', 'paymentModes'));
-    }
+    // Fetch destinations based on type
+    $destinations = $type 
+        ? Destination::where('domestic_or_international', $type)->get()
+        : collect(); // Empty collection if no type selected
+
+    return view("itinerary.create", compact(
+        'termsAndConditions',
+        'specialNotes',
+        'cancellationPolicies',
+        'paymentModes',
+        'destinations',
+        'type'
+    ));
+}
 
 
      /**
@@ -158,19 +173,41 @@ class ItineraryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Itinerary $itinerary)
+    public function edit(Request $request, Itinerary $itinerary)
     {
-
            // Fetch all required data
            $termsAndConditions = TermsAndCondition::all();
            $specialNotes = SpecialNote::all(); // Replace with your actual model and query
            $cancellationPolicies = CancellationPolicy::all(); // Replace with your actual model and query
            $paymentModes = PaymentMode::all(); // Replace with your actual model and query
        
+           $type = $itinerary->domestic_or_international; // Default type from itinerary
+
+             // Get the selected type from request
+
+             if(!empty($request->query('domestic_or_international'))){
+                $type = $request->query('domestic_or_international');
+             }
+  
+    
+    // Fetch destinations based on type
+
+    $destinations = $type 
+        ? Destination::where('domestic_or_international', $type)->get()
+        : collect(); // Empty collection if no type selected
+
 
         $itineraryResource = $itinerary;
 
-        return view("itinerary.edit", compact("itineraryResource", 'termsAndConditions', 'specialNotes', 'cancellationPolicies', 'paymentModes'));
+        return view("itinerary.edit", 
+        compact("itineraryResource", 
+        'termsAndConditions', 
+        'specialNotes', 
+        'cancellationPolicies', 
+        'paymentModes', 
+        'destinations',
+        'type'));
+        
     }
 
          /**

@@ -9,23 +9,54 @@
 
     <div id="_json_strings" data-terms_and_conditions="{{json_encode($termsAndConditions)}}"></div>
 
+
+
+    <form method="GET" action="{{ route('itinerary.create') }}">
+        <div class="form-group">
+            <label for="domestic_or_international">Domestic or International</label>
+            <select class="form-control" id="domestic_or_international" name="domestic_or_international" onchange="this.form.submit()" required>
+                <option value="">Select Destination Type</option>
+                <option value="domestic" {{ $type == 'domestic' ? 'selected' : '' }}>Domestic</option>
+                <option value="international" {{ $type == 'international' ? 'selected' : '' }}>International</option>
+            </select>
+            <p id="domestic_or_internationalErr" class="text-danger small"></p>
+        </div>
+    </form>
+
+
     <form id="createItineraryForm" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-6">
                 <!-- Form fields for itinerary details -->
+
+                <div class="form-group">
+                    <label for="selected_destination">Select Destination</label>
+                    <div class="input-group">
+                        <select class="form-control" name="selected_destination" id="selected_destination" required>
+                            <option value="">Select Destination</option>
+                            @foreach($destinations as $destination)
+                                <option value="{{ $destination->destination_name }}">{{ $destination->destination_name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="input-group-append">
+
+                            <a href="{{ route('destinations.create', ['redirect_back_to' => url()->current()]) }}" 
+                                class="btn btn-primary" type="button">
+                                 <i class="fas fa-plus"></i>
+                             </a>
+
+                        </div>
+                    </div>
+                    <p id="selected_destinationErr" class="text-danger small"></p>
+                </div>
+
+
+
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title">
                     <p id="titleErr" class="text-danger small"></p>
-                </div>
-
-                <div class="form-group">
-                    <label for="selected_destination">Select Destination</label>
-                    <select class="form-control" name="selected_destination" id="selected_destination" required>
-                    <option value="">Select Destination</option>
-                    </select>
-                    <p id="selected_destinationErr" class="text-danger small"></p>
                 </div>
 
 
@@ -47,14 +78,7 @@
                     <p id="slugPreview" class="text-muted"></p>
                     <p id="slugErr" class="text-danger small"></p>
                 </div>
-                <div class="form-group">
-                    <label for="domestic_or_international">Domestic or International</label>
-                    <select class="form-control" id="domestic_or_international" name="domestic_or_international" required>
-                        <option value="domestic">Domestic</option>
-                        <option value="international">International</option>
-                    </select>
-                    <p id="domestic_or_internationalErr" class="text-danger small"></p>
-                </div>
+               
                 <div class="form-group">
                     <label for="duration">Duration</label>
                     <select class="form-control" id="duration" name="duration" required>

@@ -23,6 +23,12 @@
                 <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
             </div>
+
+
+            @if (!empty($redirect_back_to))
+    <input type="hidden" name="redirect_back_to" value="{{ $redirect_back_to }}">
+@endif
+
             
             <button type="submit" class="btn btn-primary">Save Destination</button>
         </form>

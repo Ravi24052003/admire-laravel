@@ -30,8 +30,14 @@ class DestinationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->has('redirect_back_to')) {
+            return view('destinations.create', [
+                'redirect_back_to' => $request->input('redirect_back_to')
+            ]);
+        }
+
         return view('destinations.create');
     }
 
@@ -44,10 +50,13 @@ class DestinationController extends Controller
             'domestic_or_international' => 'required|in:domestic,international',
             'destination_name' => 'required|string|max:255|unique:destinations,destination_name',
         ]);
-
         
 
         Destination::create($validated);
+
+        if ($request->has('redirect_back_to')) {
+            return redirect($request->input('redirect_back_to'))->with('success', 'Destination created!');
+        }
 
         return redirect()->route('destinations.index')
             ->with('success', 'Destination created successfully.');

@@ -8,6 +8,22 @@
         <i class="fas fa-plus"></i> Create Itinerary Video
     </a>
 
+
+
+    <form method="GET" action="{{ route('itinerary.edit', $itineraryResource) }}">
+        <div class="form-group">
+            <label for="domestic_or_international">Domestic or International</label>
+            <select class="form-control" id="domestic_or_international" name="domestic_or_international" onchange="this.form.submit()" required>
+                <option value="">Select Destination Type</option>
+                <option value="domestic" {{ $type == 'domestic' ? 'selected' : '' }}>Domestic</option>
+                <option value="international" {{ $type == 'international' ? 'selected' : '' }}>International</option>
+            </select>
+            <p id="domestic_or_internationalErr" class="text-danger small"></p>
+        </div>
+    </form>
+
+
+
     <form id="editItineraryForm" enctype="multipart/form-data">
         @csrf
 
@@ -24,21 +40,55 @@
             <div class="col-md-6">
                 <!-- Form fields for itinerary details -->
 
+
+                {{-- <div class="form-group">
+                    <label for="selected_destination">Select Destination</label>
+                    <select class="form-control" name="selected_destination" id="selected_destination" required>
+                        <option value="">Select Destination</option>
+                       
+                        <option value="{{ $itineraryResource->selected_destination }}" selected>{{ $itineraryResource->selected_destination }}</option>
+                    </select>
+                    <p id="selected_destinationErr" class="text-danger small"></p>
+                </div> --}}
+
+
+
+
+                <div class="form-group">
+                    <label for="selected_destination">Select Destination</label>
+                    <div class="input-group">
+                        <select class="form-control" name="selected_destination" id="selected_destination" required>
+                            <option value="">Select Destination</option>
+                            @foreach($destinations as $destination)
+                                <option value="{{ $destination->destination_name }}" {{($destination->destination_name == $itineraryResource->selected_destination)? 'selected' : ''}} >{{ $destination->destination_name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="input-group-append">
+
+                            <a href="{{ route('destinations.create', ['redirect_back_to' => url()->current()]) }}" 
+                                class="btn btn-primary" type="button">
+                                 <i class="fas fa-plus"></i>
+                             </a>
+
+                        </div>
+                    </div>
+                    <p id="selected_destinationErr" class="text-danger small"></p>
+                </div>
+
+
+
+
+
+
+
+
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title" value="{{ $itineraryResource->title }}" required>
                     <p id="titleErr" class="text-danger small"></p>
                 </div>
 
-                <div class="form-group">
-                    <label for="selected_destination">Select Destination</label>
-                    <select class="form-control" name="selected_destination" id="selected_destination" required>
-                        <option value="">Select Destination</option>
-                        <!-- Populate options dynamically -->
-                        <option value="{{ $itineraryResource->selected_destination }}" selected>{{ $itineraryResource->selected_destination }}</option>
-                    </select>
-                    <p id="selected_destinationErr" class="text-danger small"></p>
-                </div>
+              
 
 
 
