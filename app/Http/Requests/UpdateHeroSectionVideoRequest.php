@@ -25,7 +25,7 @@ class UpdateHeroSectionVideoRequest extends FormRequest
             'use_in' => 'sometimes|string|max:255', // e.g., home, about, blog, contact
             'visibility' => 'sometimes|in:private,public',
             'video_url' => 'nullable|string',
-            'video_file' => 'sometimes|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska|max:20480',
+            'video_file' => 'sometimes|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska',
         ];
     }
 }

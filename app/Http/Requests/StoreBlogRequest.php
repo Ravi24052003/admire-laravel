@@ -30,8 +30,8 @@ class StoreBlogRequest extends FormRequest
             'blog_meta_title' => 'required|string|max:255',
             'blog_meta_description' => 'required|string',
             'blog_meta_keywords' => 'required|string|max:255',
-            'blog_image_file' => 'required|image|max:2048',
-            'blog_images_files.*' => 'nullable|image|max:2048',
+            'blog_image_file' => 'required|image',
+            'blog_images_files.*' => 'nullable|image',
         ];
     }
 

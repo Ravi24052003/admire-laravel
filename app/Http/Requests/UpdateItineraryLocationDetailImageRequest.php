@@ -25,7 +25,7 @@ class UpdateItineraryLocationDetailImageRequest extends FormRequest
             'destination' => 'sometimes|string|unique:itinerary_location_detail_images,destination,'.$this->route("itinerary_location_detail_image")->id,
             'removed_images' => "nullable|string",
             'images' => "nullable",
-             'images_files.*' => 'sometimes|image|max:2048'
+             'images_files.*' => 'sometimes|image'
         ];
     }
 }

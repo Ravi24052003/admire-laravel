@@ -24,7 +24,7 @@ class StoreItineraryLocationDetailImageRequest extends FormRequest
         return [
             'destination' => 'required|string|unique:itinerary_location_detail_images,destination',
             'images' => "nullable",
-             'images_files.*' => 'required|image|max:2048'
+             'images_files.*' => 'required|image'
         ];
     }
 }

@@ -27,7 +27,7 @@ class UpdateDestinationImageRequest extends FormRequest
             'public_images' => "nullable|string",
             "domestic_or_international" => "sometimes|in:domestic,international",
             'images' => "nullable",
-             'images_files.*' => 'sometimes|image|max:2048'
+             'images_files.*' => 'sometimes|image'
         ];
     }
 }

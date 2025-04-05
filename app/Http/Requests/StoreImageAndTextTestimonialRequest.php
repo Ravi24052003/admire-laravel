@@ -26,9 +26,9 @@ class StoreImageAndTextTestimonialRequest extends FormRequest
             'rating' => 'required|integer|between:1,5',
             'text' => 'required|string',
             'visibility' => 'required|in:private,public',
-            'image_file' => 'required|image|max:2048',
+            'image_file' => 'required|image',
             'images' => 'nullable',
-            'images_files.*' => 'nullable|image|max:2048'
+            'images_files.*' => 'nullable|image'
         ];
     }
 }

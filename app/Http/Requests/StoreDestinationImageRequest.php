@@ -25,7 +25,7 @@ class StoreDestinationImageRequest extends FormRequest
             'destination' => 'required|string|unique:destination_images,destination',
             "domestic_or_international" => "required|in:domestic,international",
             'images' => "nullable",
-             'images_files.*' => 'required|image|max:2048'
+             'images_files.*' => 'required|image'
         ];
     }
 }

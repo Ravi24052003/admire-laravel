@@ -24,7 +24,7 @@ class StoreVideoBannerRequest extends FormRequest
         return [
             'destination' => 'required|string|unique:selected_destination_video_banners,destination',
             'video_url' => 'nullable|string',
-            'video_file' => 'required|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska|max:20480',
+            'video_file' => 'required|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska',
         ];
     }
 }

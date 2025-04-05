@@ -24,7 +24,7 @@ class UpdateBlogContentImageRequest extends FormRequest
         return [
             "blog_slug" => "sometimes|unique:blog_content_images,blog_slug," . $this->route('blog_content_image')->id,
             'images' => "nullable",
-            'images_files.*' => 'sometimes|image|max:2048'
+            'images_files.*' => 'sometimes|image'
         ];
     }
 }

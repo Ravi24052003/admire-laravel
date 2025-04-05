@@ -25,7 +25,7 @@ class StoreHeroSectionVideoRequest extends FormRequest
             'use_in' => 'required|string|max:255', // e.g., home, about, blog, contact
             'visibility' => 'required|in:private,public',
             'video_url' => 'nullable|string',
-            'video_file' => 'required|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska|max:20480',
+            'video_file' => 'required|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska',
         ];
     }
 }

@@ -24,7 +24,7 @@ class StoreItineraryVideoRequest extends FormRequest
         return [
             'itinerary_id' => 'required|string|unique:itinerary_video,itinerary_id',
             'video_url' => 'nullable|string',
-            'video_file' => 'required|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska|max:20480',
+            'video_file' => 'required|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska',
         ];
     }
 }

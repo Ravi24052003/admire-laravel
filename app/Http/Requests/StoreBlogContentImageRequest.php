@@ -24,7 +24,7 @@ class StoreBlogContentImageRequest extends FormRequest
         return [
             "blog_slug" => "required|unique:blog_content_images,blog_slug",
             'images' => "nullable",
-            'images_files.*' => 'required|image|max:2048'
+            'images_files.*' => 'required|image'
         ];
     }
 }

@@ -25,7 +25,7 @@ class UpdateGalleryRequest extends FormRequest
             'visibility' => 'sometimes|in:private,public',
             'removed_images' => "nullable|string",
             'images' => "nullable",
-            'images_files.*' => 'sometimes|image|max:2048'
+            'images_files.*' => 'sometimes|image'
         ];
     }
 }

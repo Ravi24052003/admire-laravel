@@ -24,7 +24,7 @@ class StoreGalleryRequest extends FormRequest
         return [
             'visibility' => 'required|in:private,public',
              'images' => "nullable",
-             'images_files.*' => 'required|image|max:2048'
+             'images_files.*' => 'required|image'
         ];
     }
 }

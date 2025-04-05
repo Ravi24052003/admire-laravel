@@ -24,7 +24,7 @@ class UpdateItineraryVideoRequest extends FormRequest
         return [
             'itinerary_id' => 'sometimes|string|unique:itinerary_video,itinerary_id,' . $this->route('itinerary_video')->id,
             'video_url' => 'nullable|string',
-            'video_file' => 'sometimes|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska|max:20480',
+            'video_file' => 'sometimes|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/x-matroska',
         ];
     }
 }
