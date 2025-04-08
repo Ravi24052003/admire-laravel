@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ItineraryLocationDetailImage;
 use App\Http\Requests\StoreItineraryLocationDetailImageRequest;
 use App\Http\Requests\UpdateItineraryLocationDetailImageRequest;
+use App\Models\Destination;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -18,9 +20,16 @@ class ItineraryLocationDetailImageController extends Controller
     }
 
     // Show the form for creating a new resource
-    public function create()
+    public function create(Request $request)
     {
-        return view('itinerary_location_detail_images.create');
+        $type = $request->query('domestic_or_international');
+
+        $destinations = $type 
+        ? Destination::where('domestic_or_international', $type)->get()
+        : collect(); // Empty collection if no type selected
+
+        return view('itinerary_location_detail_images.create', compact('destinations',
+        'type'));
     }
 
     // Store a newly created resource in storage
@@ -63,9 +72,22 @@ class ItineraryLocationDetailImageController extends Controller
     }
 
     // Show the form for editing the specified resource (Route Model Binding)
-    public function edit(ItineraryLocationDetailImage $itinerary_location_detail_image)
+    public function edit(Request $request, ItineraryLocationDetailImage $itinerary_location_detail_image)
     {
-        return view('itinerary_location_detail_images.edit', compact('itinerary_location_detail_image'));
+        $destination = Destination::where("destination_name", $itinerary_location_detail_image->destination)->firstOrFail(); // Default type from itinerary
+
+        $type = $destination->domestic_or_international;
+
+        // Get the selected type from request
+        if(!empty($request->query('domestic_or_international'))){
+           $type = $request->query('domestic_or_international');
+        }
+
+        $destinations = $type 
+   ? Destination::where('domestic_or_international', $type)->get()
+   : collect(); // Empty collection if no type selected
+        
+        return view('itinerary_location_detail_images.edit', compact('itinerary_location_detail_image', 'destinations', 'type'));
     }
 
     public function update(UpdateItineraryLocationDetailImageRequest $request, ItineraryLocationDetailImage $itinerary_location_detail_image)

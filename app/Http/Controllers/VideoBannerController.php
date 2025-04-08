@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\SelectedDestinationVideoBanner;
 use App\Http\Requests\StoreVideoBannerRequest;
 use App\Http\Requests\UpdateVideoBannerRequest;
+use App\Models\Destination;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class VideoBannerController extends Controller
 {
@@ -17,9 +19,20 @@ class VideoBannerController extends Controller
         return view('video_banners.index', compact('videoBanners'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('video_banners.create');
+        // Get the selected type from request
+    $type = $request->query('domestic_or_international');
+    
+    // Fetch destinations based on type
+    $destinations = $type 
+        ? Destination::where('domestic_or_international', $type)->get()
+        : collect(); // Empty collection if no type selected
+
+        return view('video_banners.create', compact(
+            'destinations',
+            'type'
+            ));
     }
 
     public function store(StoreVideoBannerRequest $request)
@@ -48,9 +61,26 @@ class VideoBannerController extends Controller
         return view('video_banners.show', compact('video_banner'));
     }
 
-    public function edit(SelectedDestinationVideoBanner $video_banner)
+    public function edit(Request $request, SelectedDestinationVideoBanner $video_banner)
     {
-        return view('video_banners.edit', compact('video_banner'));
+        $destination = Destination::where("destination_name", $video_banner->destination)->firstOrFail(); // Default type from itinerary
+
+        $type = $destination->domestic_or_international; // Default type from itinerary
+
+        // Get the selected type from request
+
+        if(!empty($request->query('domestic_or_international'))){
+           $type = $request->query('domestic_or_international');
+        }
+
+
+// Fetch destinations based on type
+
+$destinations = $type 
+   ? Destination::where('domestic_or_international', $type)->get()
+   : collect(); // Empty collection if no type selected
+
+        return view('video_banners.edit', compact('video_banner', 'destinations', 'type'));
     }
 
     public function update(UpdateVideoBannerRequest $request, SelectedDestinationVideoBanner $video_banner)

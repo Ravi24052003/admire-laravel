@@ -8,8 +8,5 @@ class SelectedDestinationVideoBanner extends Model
 {
     protected $table = 'selected_destination_video_banners';
 
-    protected $fillable = [
-        'video_url',
-        'destination',
-    ];
+    protected $guarded = [];
 }

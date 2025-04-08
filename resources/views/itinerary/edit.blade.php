@@ -247,6 +247,10 @@
                     <label>
                         <input type="checkbox" name="status_flags[]" value="is_weekend" {{ in_array('is_weekend', $selectedFlags) ? 'checked' : '' }}> Is Weekend
                     </label><br>
+
+                    <label>
+                        <input type="checkbox" name="status_flags[]" value="is_gateway" {{ in_array('is_gateway', $selectedFlags) ? 'checked' : '' }}> Is Gateway
+                    </label><br>
                 </div>
 
 

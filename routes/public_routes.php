@@ -23,6 +23,8 @@ Route::get('public-gallery-images', [PublicController::class, 'getGalleryImages'
 
 Route::get('public-weekend-trending-itineraries', [PublicController::class, 'getWeekendTrendingItineraries']);
 
+Route::get('public-weekend-gateway-itineraries', [PublicController::class, 'getWeekendGatewayItineraries']);
+
 Route::get('public-destination-images/{destination}', [PublicController::class, 'getDestinationImages']);
 
 Route::get('public-domestic-destinations-images', [PublicController::class, 'getDomesticDestinationsImages']);

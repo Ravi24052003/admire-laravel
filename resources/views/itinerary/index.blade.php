@@ -71,7 +71,37 @@
                 <label><input type="checkbox" name="status_flags[]" value="is_trending"> Is Trending</label><br>
                 <label><input type="checkbox" name="status_flags[]" value="is_exclusive"> Is Exclusive</label><br>
                 <label><input type="checkbox" name="status_flags[]" value="is_weekend"> Is Weekend</label><br>
+                <label><input type="checkbox" name="status_flags[]" value="is_gateway"> Is Gateway</label><br>
             </div>
+
+
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold mb-2">From Date and To Date</label>
+                <div class="d-flex gap-3">
+                    <input 
+                        type="date" 
+                        name="from_date" 
+                        class="form-control" 
+                        placeholder="Select from date" 
+                        value="{{ request('from_date') }}"
+                    >
+                    <input 
+                        type="date" 
+                        name="to_date" 
+                        class="form-control" 
+                        placeholder="Select to date" 
+                        value="{{ request('to_date') }}"
+                    >
+                </div>
+
+                @error('dateError')
+                    <div class="text-danger">{{$message}}</div>
+                @enderror
+
+            </div>
+            
+
             
             
         </div>

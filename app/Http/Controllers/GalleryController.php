@@ -31,9 +31,9 @@ class GalleryController extends Controller
         $directory = public_path('gallery_images');
 
         DB::transaction(function () use ($request, $directory, $data){
-            if ($request->visibility === 'public') {
-                Gallery::where('visibility', 'public')->update(['visibility' => 'private']);
-            }
+            // if ($request->visibility === 'public') {
+            //     Gallery::where('visibility', 'public')->update(['visibility' => 'private']);
+            // }
 
             if ($request->hasFile("images_files")) {
                 $image_files = $request->file("images_files");
@@ -78,9 +78,9 @@ class GalleryController extends Controller
         $directory = public_path('gallery_images');
 
         DB::transaction(function () use ($request, $data, $gallery, $directory){
-            if ($request->visibility == 'public') {
-                Gallery::where('visibility', 'public')->update(['visibility' => 'private']);
-            }
+            // if ($request->visibility == 'public') {
+            //     Gallery::where('visibility', 'public')->update(['visibility' => 'private']);
+            // }
            
             $existingImages = $gallery->images ?? [];
     

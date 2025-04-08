@@ -1,7 +1,7 @@
 @extends('dashboard_layout.app')
 
 @section('content')
-    <h1>Itinerary Location Detail Images</h1>
+    <h1>Itinerary Images</h1>
     <a href="{{ route('itinerary-location-detail-images.create') }}" class="btn btn-primary">Upload Images</a>
     <table class="table">
         <thead>

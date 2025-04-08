@@ -191,6 +191,7 @@
                     <label><input type="checkbox" name="status_flags[]" value="is_trending" > Is Trending</label><br>
                     <label><input type="checkbox" name="status_flags[]" value="is_exclusive" > Is Exclusive</label><br>
                     <label><input type="checkbox" name="status_flags[]" value="is_weekend" > Is Weekend</label><br>
+                    <label><input type="checkbox" name="status_flags[]" value="is_gateway" > Is Gateway</label><br>
                 </div>
 
 

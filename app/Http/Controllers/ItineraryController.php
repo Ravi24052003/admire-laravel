@@ -12,6 +12,7 @@ use App\Models\Itinerary;
 use App\Models\PaymentMode;
 use App\Models\SpecialNote;
 use App\Models\TermsAndCondition;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -25,6 +26,16 @@ class ItineraryController extends Controller
      */
     public function index(Request $request)
     {
+         // Validate date first
+    if ($request->filled('from_date') && $request->filled('to_date')) {
+        $fromDate = Carbon::parse($request->from_date)->startOfDay();
+        $toDate = Carbon::parse($request->to_date)->endOfDay();
+
+        if ($fromDate > $toDate) {
+            return redirect()->back()->withErrors(['dateError' => "From date can't be greater than to date"]);
+        }
+    }
+      
         $query = Itinerary::query();
     
         // Default sorting
@@ -53,16 +64,61 @@ class ItineraryController extends Controller
             foreach ($request->status_flags as $flag) {
                 $q->whereJsonContains('status_flags', $flag);
             }
+            return $q;
         });
-    
+        
+
+
+        $query->when($request->filled('from_date') && $request->filled('to_date'), function($q) use($request){
+         $fromDate = Carbon::parse($request->from_date)->startOfDay();
+         $toDate = Carbon::parse($request->to_date)->endOfDay();
+
+            return $q->whereBetween("created_at", [$fromDate, $toDate]);
+        });
+
+
+        // or
+
+        // $query->when($request->filled('from_date') && $request->filled('to_date'), function($q) use($request){
+            // $fromDate = Carbon::parse($request->from_date)->format('Y-m-d');
+            // $toDate = Carbon::parse($request->to_date)->format('Y-m-d');
+   
+        //        return $q->whereDate("created_at", ">=", $fromDate)
+        //                  ->whereDate("created_at", "<=", $toDate);
+        //    });
+
+
+
     // Get paginated itineraries
     $itineraries = $query->paginate(50);
+
+     // extra code only for refrence
+//     $items = $itineraries->getCollection()
+//             ->filter(function ($item) {
+//         $fromDate = Carbon::parse(request()->input('from_date'))->startOfDay();
+//         $toDate = Carbon::parse(request()->input('to_date'))->endOfDay();
+
+//         if(($item->created_at >= $fromDate) && ($item->created_at <= $toDate)){
+//             return $item;
+//         }
+
+//             })
+//          ->map(function($item){
+//         unset($item->days_information);
+//         unset($item->terms_and_conditions);
+
+//         return $item;
+//      });
+
+// $itineraries->setCollection($items);
+    // extra code only for refrence
     
     // Convert collection to resource while keeping pagination
     $itinerariesResource = $itineraries;
 
     // Send to Blade view
-    return view('itinerary.index', compact('itinerariesResource'));
+        return view('itinerary.index', compact('itinerariesResource'));
+
     }    
 
      /**

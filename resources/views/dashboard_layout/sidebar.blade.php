@@ -75,7 +75,7 @@
   
                             <li>
                               <a href="{{ route('itinerary-location-detail-images.index') }}">
-                                  <span class="sub-item">Itinerary Content Images</span>
+                                  <span class="sub-item">Itinerary Images</span>
                               </a>
                           </li>
   

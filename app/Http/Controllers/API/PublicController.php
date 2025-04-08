@@ -234,7 +234,7 @@ public function getDestinationVideo($destination) {
 
 
 public function getGalleryImages(){
-    $gallery = Gallery::where('visibility', 'public')->firstOrFail();
+    $gallery = Gallery::where('visibility', 'public')->get();
 
     return response()->json($gallery, 200)
         ->header('Access-Control-Allow-Origin', '*')
@@ -347,6 +347,32 @@ public function getVideoTestimonials()
     ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
+}
+
+
+
+
+public function getWeekendGatewayItineraries(){
+    $itineraries = Itinerary::whereJsonContains('status_flags', ["is_weekend", "is_gateway"])
+                            ->where('itinerary_visibility', 'public')
+                            ->orderBy('id', 'desc')
+                            ->limit(10)
+                            ->select([
+                                'destination_thumbnail',
+                                'destination_images',
+                                'domestic_or_international',
+                                'duration',
+                                'pricing',
+                                'selected_destination',
+                                'slug',
+                                'title'
+                            ])
+                            ->get();
+
+    return response()->json($itineraries, 200)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
 
 }
