@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogContentImageController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CancellationPolicyController;
+use App\Http\Controllers\CounterController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\DestinationImageController;
 use App\Http\Controllers\GalleryController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\ImageAndTextTestimonialController;
 use App\Http\Controllers\ItineraryLocationDetailImageController;
 use App\Http\Controllers\ItineraryVideoController;
 use App\Http\Controllers\PaymentModeController;
+use App\Http\Controllers\ResortController;
 use App\Http\Controllers\SpecialNoteController;
 use App\Http\Controllers\TermsAndPolicyController;
 use App\Http\Controllers\UserController;
@@ -74,6 +76,10 @@ Route::middleware("auth")->group(function(){
     Route::resource('video-testimonials', VideoTestimonialController::class);
 
     Route::resource('destinations', DestinationController::class);
+
+    Route::resource('counters', CounterController::class);
+
+    Route::resource('resorts', ResortController::class);
     
     Route::get('logout', [AuthController::class, "logout"])->name("dashboard.logout");
 

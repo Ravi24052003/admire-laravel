@@ -288,7 +288,100 @@
                       </ul>
                   </div>
               </li>
+
+
+
+
+
+
+
+
+
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#counter">
+                    <i class="fas fa-chart-line"></i> 
+
+                    <p>Counters</p>
+                    <span class="caret"></span>
+                </a>
+                <div class="collapse" id="counter">
+                    <ul class="nav nav-collapse">
+                        <li>
+
+                            <a href="{{ route('counters.index') }}">
+                                <span class="sub-item">Counters</span>
+                            </a>
+
+                        </li>
+                      
+                    </ul>
+                </div>
+            </li>
+
+
+
+
+
+
+            <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#resort">
+                    <i class="fas fa-hotel"></i>
+
+                    <p>Resorts</p>
+                    <span class="caret"></span>
+                </a>
+                <div class="collapse" id="resort">
+                    <ul class="nav nav-collapse">
+                        <li>
+
+                            <a href="{{ route('resorts.index') }}">
+                                <span class="sub-item">Resorts</span>
+                            </a>
+
+                        </li>
+                      
+                    </ul>
+                </div>
+            </li>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                        <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#weekend_gateway">
+                    <i class="fas fa-umbrella-beach text-primary"></i>
+
+                    <p>Weekend Gateway</p>
+                    <span class="caret"></span>
+                </a>
+                <div class="collapse" id="weekend_gateway">
+                    <ul class="nav nav-collapse">
+                        <li>
+
+                            <a href="{{ route('destination-images.index', ['destination_type' => 'weekend_gateway']) }}">
+                                <span class="sub-item">Weekend Gateway Images</span>
+                            </a>                            
   
+                              <a href="{{ route('destination-images.create', ['destination_type' => 'weekend_gateway']) }}">
+                                  <span class="sub-item">Create Weekend Gateway Images</span>
+                              </a>
+
+                        </li>
+                      
+                    </ul>
+                </div>
+            </li>
+            
+
   
   
             </ul>

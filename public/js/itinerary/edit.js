@@ -23,6 +23,12 @@ $(document).ready(function() {
         height: 300
         });
 
+    $('#tour_highlight').summernote({
+        placeholder: '',
+        tabsize: 2,
+        height: 300
+        });
+
   });
 
 let currentDay = 1;
@@ -292,6 +298,7 @@ document.getElementById('editItineraryForm').addEventListener('submit', async fu
         }
 
     formData.append("exclusion", document.getElementById("exclusion").value);
+    formData.append("tour_highlight", document.getElementById("tour_highlight").value);
     formData.append("terms_and_conditions", document.getElementById("terms_and_conditions").value);
 
 

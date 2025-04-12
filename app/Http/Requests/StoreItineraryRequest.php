@@ -25,6 +25,7 @@ class StoreItineraryRequest extends FormRequest
             'destination_detail' => 'required|string',
             'inclusion' => 'nullable|string',
             'exclusion' => 'nullable|string',
+            'tour_highlight' => 'nullable|string',
             'additional_inclusion' => 'nullable|string',
             'terms_and_conditions' => 'nullable|string',
             

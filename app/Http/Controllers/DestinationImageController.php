@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDestinationImageRequest;
 use App\Http\Requests\UpdateDestinationImageRequest;
+use App\Models\Destination;
 use App\Models\DestinationImage;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -13,13 +15,31 @@ class DestinationImageController extends Controller
     // Display a listing of the resource
     public function index()
     {
-        $images = DestinationImage::all();
-        return view('destination_image.index', compact('images'));
+        if(!empty(request()->input('destination_type'))){
+            $images = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->latest()->get();
+
+            return view('weekend_gateway.index', compact('images'));
+        }
+
+        $trendingImageIds = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->pluck('id');
+
+        // return response()->json($trendingImageIds);
+
+        $images = DestinationImage::whereNotIn('id', $trendingImageIds)->latest()->get();
+        
+        return view('destination_image.index', compact('images'));        
     }
 
     // Show the form for creating a new resource
     public function create()
     {
+        if(!empty(request()->input('destination_type'))) {
+            $destination_type = request()->input('destination_type');
+            $destinations = Destination::where('domestic_or_international', "domestic")->get();
+
+            return view('weekend_gateway.create', compact('destination_type', 'destinations'));
+        }
+
         return view('destination_image.create');
     }
 
@@ -27,6 +47,10 @@ class DestinationImageController extends Controller
     public function store(StoreDestinationImageRequest $request)
     {
         $data = $request->validated();
+
+        if(!empty($data["destination_type"])){
+         $data["destination_type"] = json_decode($data["destination_type"]);
+        }
 
         $directory = public_path('destination_images');
 
@@ -43,6 +67,15 @@ class DestinationImageController extends Controller
             }
 
             $data["images"] = $images_paths;
+
+
+            if(!empty($data["public_images"])){
+                if ($data["public_images"] == "public") {
+                    $data["public_images"] = $images_paths;
+                } else {
+                    $data["public_images"] = [];
+                }
+            }
         }
 
         Arr::forget($data, [
@@ -51,6 +84,11 @@ class DestinationImageController extends Controller
 
         DestinationImage::create($data);
 
+        if(!empty($data["destination_type"])){
+            return redirect()->route('destination-images.index', ['destination_type' => $data["destination_type"]])
+                ->with('success', 'Images uploaded successfully.');
+           }
+
         return redirect()->route('destination-images.index')
             ->with('success', 'Images uploaded successfully.');
     }
@@ -58,12 +96,24 @@ class DestinationImageController extends Controller
     // Display the specified resource (Route Model Binding)
     public function show(DestinationImage $destination_image)
     {
+        if(!empty($destination_image->destination_type)){
+
+            return view('weekend_gateway.show', compact('destination_image'));
+        }
+
         return view('destination_image.show', compact('destination_image'));
     }
 
     // Show the form for editing the specified resource (Route Model Binding)
     public function edit(DestinationImage $destination_image)
     {
+        if(!empty($destination_image->destination_type)){
+            $destination_type = $destination_image->destination_type;
+            $destinations = Destination::where('domestic_or_international', "domestic")->get();
+
+            return view('weekend_gateway.edit', compact('destination_image', 'destination_type', 'destinations'));
+        }
+
         return view('destination_image.edit', compact('destination_image'));
     }
 
@@ -71,6 +121,7 @@ class DestinationImageController extends Controller
 public function update(UpdateDestinationImageRequest $request, DestinationImage $destination_image)
 {
     $data = $request->validated();
+
     $directory = public_path('destination_images');
 
     // Get existing images
@@ -134,9 +185,15 @@ public function update(UpdateDestinationImageRequest $request, DestinationImage 
 
     // Remove temporary fields from the data array
     Arr::forget($data, ['images_files', 'removed_images']);
-    
+
     // Update the database
     $destination_image->update($data);
+
+
+    if(!empty(request()->input('destination_type'))){
+        return redirect()->route('destination-images.index', ['destination_type'=> 'weekend_gateway'])
+        ->with('success', 'Images updated successfully.');
+       }
 
     return redirect()->route('destination-images.index')
         ->with('success', 'Images updated successfully.');
@@ -162,6 +219,15 @@ public function update(UpdateDestinationImageRequest $request, DestinationImage 
         }
 
         $destination_image->delete();
+
+        if(!empty(request()->input('destination_type'))){
+            $images = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->latest()->get();
+
+            return redirect()->route('destination-images.index', ['destination_type'=> 'weekend_gateway'])
+        ->with('success', 'Images Deleted successfully.');
+           }
+
+         // Redirect to the index page with a success message
 
         return redirect()->route('destination-images.index')
             ->with('success', 'Images deleted successfully.');

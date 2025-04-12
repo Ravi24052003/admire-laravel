@@ -68,11 +68,24 @@
             {{-- Status Flags  --}}
             <div class="col-md-3">
                 <label>Status Flags</label><br>
-                <label><input type="checkbox" name="status_flags[]" value="is_trending"> Is Trending</label><br>
-                <label><input type="checkbox" name="status_flags[]" value="is_exclusive"> Is Exclusive</label><br>
-                <label><input type="checkbox" name="status_flags[]" value="is_weekend"> Is Weekend</label><br>
-                <label><input type="checkbox" name="status_flags[]" value="is_gateway"> Is Gateway</label><br>
+                <label>
+                    <input type="checkbox" name="status_flags[]" value="is_trending"
+                        {{ in_array('is_trending', request('status_flags') ?? []) ? 'checked' : '' }}> Is Trending
+                </label><br>
+                <label>
+                    <input type="checkbox" name="status_flags[]" value="is_exclusive"
+                        {{ in_array('is_exclusive', request('status_flags') ?? []) ? 'checked' : '' }}> Is Exclusive
+                </label><br>
+                <label>
+                    <input type="checkbox" name="status_flags[]" value="is_weekend"
+                        {{ in_array('is_weekend', request('status_flags') ?? []) ? 'checked' : '' }}> Is Weekend
+                </label><br>
+                <label>
+                    <input type="checkbox" name="status_flags[]" value="is_gateway"
+                        {{ in_array('is_gateway', request('status_flags') ?? []) ? 'checked' : '' }}> Is Gateway
+                </label><br>
             </div>
+            
 
 
 

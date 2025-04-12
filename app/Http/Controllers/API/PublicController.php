@@ -5,11 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItineraryResource;
 use App\Models\Blog;
+use App\Models\Counter;
 use App\Models\DestinationImage;
 use App\Models\Gallery;
 use App\Models\HeroSectionVideo;
 use App\Models\ImageAndTextTestimonial;
 use App\Models\Itinerary;
+use App\Models\Resort;
 use App\Models\SelectedDestinationVideoBanner;
 use App\Models\TermsAndCondition;
 use App\Models\VideoTestimonial;
@@ -261,9 +263,22 @@ public function getDestinationImages($destination) {
 
 public function getDomesticDestinationsImages()
 {
-    $destinationsImages = DestinationImage::where('domestic_or_international', 'domestic')
-        ->withCount('itineraries') // Count itineraries for each destination
-        ->get();
+
+    $trendingImageIds = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->pluck('id');
+
+    $destinationsImages = DestinationImage::whereNotIn('id', $trendingImageIds)
+                        ->where('domestic_or_international', 'domestic')
+                        ->select([
+                        'id',
+                        'domestic_or_international',
+                        'public_images',
+                        'destination',
+                        'created_at',
+                        'updated_at'
+                        ])
+                        ->withCount('itineraries') // Count itineraries for each destination
+                        ->latest()
+                        ->get();
 
     return response()->json($destinationsImages, 200)
         ->header('Access-Control-Allow-Origin', '*')
@@ -273,9 +288,20 @@ public function getDomesticDestinationsImages()
 
 public function getInternationalDestinationsImages()
 {
-    $destinationsImages = DestinationImage::where('domestic_or_international', 'international')
-        ->withCount('itineraries') // Count itineraries for each destination
-        ->get();
+    $trendingImageIds = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->pluck('id');
+
+    $destinationsImages = DestinationImage::whereNotIn('id', $trendingImageIds)
+                            ->select([
+                            'id',
+                            'domestic_or_international',
+                            'public_images',
+                            'destination',
+                            'created_at',
+                            'updated_at'
+                            ])
+                            ->withCount('itineraries') // Count itineraries for each destination
+                            ->latest()
+                            ->get();
 
     return response()->json($destinationsImages, 200)
         ->header('Access-Control-Allow-Origin', '*')
@@ -286,13 +312,30 @@ public function getInternationalDestinationsImages()
 
 
 public function getHeroSectionPublicVideos(){
-    $videos = HeroSectionVideo::where('visibility', 'public')->get();
+    $videos = HeroSectionVideo::where('visibility', 'public')->latest()->get();
 
     return response()->json($videos, 200)
     ->header('Access-Control-Allow-Origin', '*')
     ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
+
+
+public function getParticularHeroSectionPublicVideos($section)
+{
+    // Fetch videos with public visibility and matching section
+    $videos = HeroSectionVideo::where('visibility', 'public')
+                ->where('use_in', $section)
+                ->latest()
+                ->get();
+
+    // Return response with headers
+    return response()->json($videos, 200)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
 
 
 public function getPublicBlogs()
@@ -340,7 +383,7 @@ public function getImageTextTestimonials()
 
 public function getVideoTestimonials()
 {
-    $testimonials =   VideoTestimonial::where('visibility', 'public')->get();
+    $testimonials =   VideoTestimonial::where('visibility', 'public')->latest()->get();
 
     return response()->json($testimonials, 200)
     ->header('Access-Control-Allow-Origin', '*')
@@ -373,6 +416,64 @@ public function getWeekendGatewayItineraries(){
         ->header('Access-Control-Allow-Origin', '*')
         ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
         ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
+public function getCounter()
+{
+    $counter = Counter::where('visibility', 'public')->firstOrFail();
+
+    return response()->json($counter, 200)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
+
+public function getResorts()
+{
+    $resorts = Resort::where('visibility', 'public')
+        ->latest()
+        ->get();
+
+    return response()->json($resorts, 200)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
+
+public function getWeekendTripTrendingDestinations(){
+    $destinations = DestinationImage::whereJsonContains('destination_type', ['weekend_trip_trending'])->latest()->get();
+
+    return response()->json($destinations, 200)
+    ->header('Access-Control-Allow-Origin', '*')
+    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
+
+
+public function getWeekendTripTrendingItineraries($destination){
+    $itineraries = Itinerary::where('selected_destination', $destination)
+    ->whereJsonContains('status_flags', ["is_weekend", "is_trending"])
+    ->where('itinerary_visibility', 'public')
+    ->select([
+        'destination_thumbnail',
+        'destination_images',
+        'domestic_or_international',
+        'duration',
+        'pricing',
+        'selected_destination',
+        'slug',
+        'title'
+    ])
+    ->latest()
+    ->get();
+
+    return response()->json($itineraries, 200)
+    ->header('Access-Control-Allow-Origin', '*')
+    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
 
 }

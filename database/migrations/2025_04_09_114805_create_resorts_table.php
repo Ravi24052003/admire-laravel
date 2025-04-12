@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('destination_images', function (Blueprint $table) {
+        Schema::create('resorts', function (Blueprint $table) {
             $table->id();
-            $table->json('images');
-            $table->enum('domestic_or_international', ['domestic', 'international'])->nullable();
-            $table->json('public_images')->default('[]');
-            $table->string('destination');
-            $table->json('destination_type')->nullable();
+            $table->string('image')->nullable();
+            $table->string('title');
+            $table->enum('visibility', ['private', 'public'])->default('private');
+            $table->string('discount')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('destination_images');
+        Schema::dropIfExists('resorts');
     }
 };

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longText('inclusion')->nullable(); // Long text for inclusion
             $table->longText("additional_inclusion")->nullable();
             $table->longText('exclusion')->nullable(); // Long text for exclusion
+            $table->longText('tour_highlight')->nullable(); // Long text for exclusion
             $table->longText('terms_and_conditions')->nullable(); // Long text for terms and conditions
             $table->longText('special_note')->nullable();
             $table->longText('cancellation_policy')->nullable();

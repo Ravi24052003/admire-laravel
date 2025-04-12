@@ -13,6 +13,7 @@ class DestinationImage extends Model
     protected $casts = [
         'images' => 'array', // Cast JSON to array
         'public_images' => 'array', // Cast JSON to array
+        'destination_type' => 'array'
     ];
 
     public function itineraries()

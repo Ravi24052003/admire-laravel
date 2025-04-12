@@ -25,6 +25,7 @@ class UpdateItineraryRequest extends FormRequest
             'destination_detail' => 'sometimes|string',
             'inclusion' => 'nullable|string',
             'exclusion' => 'nullable|string',
+            'tour_highlight' => 'nullable|string',
             'additional_inclusion' => 'nullable|string',
             'terms_and_conditions' => 'nullable|string',
             'special_note' => 'nullable|string',

@@ -36,10 +36,17 @@
                     <h5>Additional Inclusion</h5>
                     <p class="card-text">{!! $itineraryResource->additional_inclusion ?? 'N/A' !!}</p>
                 </div>
+
                 <div class="col-md-6">
                     <h5>Exclusions</h5>
                     <p class="card-text">{!! $itineraryResource->exclusion ?? 'N/A' !!}</p>
                 </div>
+
+                <div class="col-md-6">
+                    <h5>Tour Highlight</h5>
+                    <p class="card-text">{!! $itineraryResource->tour_highlight ?? 'N/A' !!}</p>
+                </div>
+
             </div>
 
             <!-- Terms and Conditions -->

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDestinationImageRequest extends FormRequest
+class StoreResortRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,10 @@ class StoreDestinationImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'destination' => 'required|string|unique:destination_images,destination',
-            "domestic_or_international" => "required|in:domestic,international",
-            'images' => "nullable",
-             'images_files.*' => 'required|image',
-             'destination_type' => 'nullable',
-             'public_images' => 'nullable|in:private,public'
+            'title' => 'required|string|max:255',
+            'image_file' => 'required|image',
+            'visibility' => 'required|in:private,public',
+            'discount' => 'nullable|string|max:50',
         ];
     }
 }

@@ -23,7 +23,11 @@ $(document).ready(function() {
         height: 300
         });
 
-    
+    $('#tour_highlight').summernote({
+        placeholder: '',
+        tabsize: 2,
+        height: 300
+        });
     
 
   });
@@ -294,6 +298,9 @@ document.getElementById('createItineraryForm').addEventListener('submit', async 
     }
 
     formData.append("exclusion", document.getElementById("exclusion").value);
+
+    formData.append("tour_highlight", document.getElementById("tour_highlight").value);
+
     formData.append("terms_and_conditions", document.getElementById("terms_and_conditions").value);
 
     if(document.getElementById("specialNotePlaceholder").innerHTML){

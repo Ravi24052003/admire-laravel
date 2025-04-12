@@ -33,6 +33,8 @@ Route::get('public-international-destinations-images', [PublicController::class,
 
 Route::get('public-hero-section-videos', [PublicController::class, 'getHeroSectionPublicVideos']);
 
+Route::get('public-hero-section-videos/{section}', [PublicController::class, 'getParticularHeroSectionPublicVideos']);
+
 Route::get('public-blog/{slug}', [PublicController::class, 'getParticularBlog']);
 
 Route::get('public-blogs', [PublicController::class, 'getPublicBlogs']);
@@ -40,3 +42,10 @@ Route::get('public-blogs', [PublicController::class, 'getPublicBlogs']);
 Route::get('public-image-text-testimonials', [PublicController::class, 'getImageTextTestimonials']);
 
 Route::get('public-video-testimonials', [PublicController::class, 'getVideoTestimonials']);
+
+Route::get('public-get-counter', [PublicController::class, 'getCounter']);
+
+Route::get('public-resorts', [PublicController::class, 'getResorts']);
+
+Route::get('public-weekend-trip-trending-destinations', [PublicController::class, 'getWeekendTripTrendingDestinations']);
+Route::get('public-weekend-trip-trending-itineraries/{destination}', [PublicController::class, 'getWeekendTripTrendingItineraries']);

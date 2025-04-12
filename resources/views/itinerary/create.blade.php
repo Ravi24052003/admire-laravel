@@ -65,6 +65,7 @@
                     <input type="file" class="form-control" id="destination_thumbnail_file" name="destination_thumbnail_file" required>
                     <p id="destination_thumbnail_fileErr" class="text-danger small"></p>
                 </div>
+
                 <div class="form-group">
                     <label for="destination_images_files">Destination Images</label>
                     <input type="file" class="form-control" id="destination_images_files" name="destination_images_files[]" multiple required>
@@ -88,12 +89,25 @@
                     </select>
                     <p id="durationErr" class="text-danger small"></p>
                 </div>
+                
                 <div class="form-group">
                     <label for="destination_detail">Destination Detail</label>
                     <textarea class="form-control" id="destination_detail" name="destination_detail" rows="3" required></textarea>
 
                     <p id="destination_detailErr" class="text-danger small"></p>
                 </div>
+
+
+
+                <div class="form-group">
+                    <label for="tour_highlight">Tour Highlight</label>
+                    <textarea class="form-control" id="tour_highlight" name="tour_highlight" rows="3"></textarea>
+                    <p id="tour_highlightErr" class="text-danger small"></p>
+                </div>
+
+
+
+
                 <div class="form-group">
                     <label for="inclusion">Inclusion</label>
                     <textarea class="form-control" id="inclusion" name="inclusion" rows="3"></textarea>
@@ -122,6 +136,12 @@
                     <textarea class="form-control" id="exclusion" name="exclusion" rows="3"></textarea>
                     <p id="exclusionErr" class="text-danger small"></p>
                 </div>
+
+
+
+             
+
+
                 <div class="form-group">
                     <label for="terms_and_conditions">Terms and Conditions</label>
                     <textarea class="form-control" id="terms_and_conditions" name="terms_and_conditions" rows="3"></textarea>
