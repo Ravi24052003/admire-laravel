@@ -47,5 +47,5 @@ Route::get('public-get-counter', [PublicController::class, 'getCounter']);
 
 Route::get('public-resorts', [PublicController::class, 'getResorts']);
 
-Route::get('public-weekend-trip-trending-destinations', [PublicController::class, 'getWeekendTripTrendingDestinations']);
-Route::get('public-weekend-trip-trending-itineraries/{destination}', [PublicController::class, 'getWeekendTripTrendingItineraries']);
+Route::get('public-weekend-gateway-destinations', [PublicController::class, 'getWeekendGatewayDestinations']);
+Route::get('public-weekend-gateway-itineraries/{destination}', [PublicController::class, 'getWeekendGatewayDestinationItineraries']);

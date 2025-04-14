@@ -442,8 +442,8 @@ public function getResorts()
 }
 
 
-public function getWeekendTripTrendingDestinations(){
-    $destinations = DestinationImage::whereJsonContains('destination_type', ['weekend_trip_trending'])->latest()->get();
+public function getWeekendGatewayDestinations(){
+    $destinations = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->latest()->get();
 
     return response()->json($destinations, 200)
     ->header('Access-Control-Allow-Origin', '*')
@@ -451,11 +451,9 @@ public function getWeekendTripTrendingDestinations(){
     ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
 
-
-
-public function getWeekendTripTrendingItineraries($destination){
+public function getWeekendGatewayDestinationItineraries($destination){
     $itineraries = Itinerary::where('selected_destination', $destination)
-    ->whereJsonContains('status_flags', ["is_weekend", "is_trending"])
+    ->whereJsonContains('status_flags', ["is_weekend", "is_gateway"])
     ->where('itinerary_visibility', 'public')
     ->select([
         'destination_thumbnail',

@@ -40,7 +40,15 @@ class DestinationImageController extends Controller
             return view('weekend_gateway.create', compact('destination_type', 'destinations'));
         }
 
-        return view('destination_image.create');
+        $type = request()->query('domestic_or_international');
+    
+        // Fetch destinations based on type
+        $destinations = $type 
+            ? Destination::where('domestic_or_international', $type)->get()
+            : collect(); // Empty collection if no type selected
+
+        return view('destination_image.create', compact('destinations',
+            'type'));
     }
 
     // Store a newly created resource in storage
@@ -114,7 +122,24 @@ class DestinationImageController extends Controller
             return view('weekend_gateway.edit', compact('destination_image', 'destination_type', 'destinations'));
         }
 
-        return view('destination_image.edit', compact('destination_image'));
+        $destination = Destination::where("destination_name", $destination_image->destination)->firstOrFail(); // Default type from itinerary
+
+        $type = $destination->domestic_or_international; // Default type from itinerary
+
+        // Get the selected type from request
+
+        if(!empty(request()->query('domestic_or_international'))){
+           $type = request()->query('domestic_or_international');
+        }
+
+
+// Fetch destinations based on type
+
+$destinations = $type 
+   ? Destination::where('domestic_or_international', $type)->get()
+   : collect(); // Empty collection if no type selected
+
+        return view('destination_image.edit', compact('destination_image', 'destinations', 'type'));
     }
 
 
@@ -189,7 +214,6 @@ public function update(UpdateDestinationImageRequest $request, DestinationImage 
     // Update the database
     $destination_image->update($data);
 
-
     if(!empty(request()->input('destination_type'))){
         return redirect()->route('destination-images.index', ['destination_type'=> 'weekend_gateway'])
         ->with('success', 'Images updated successfully.');
@@ -205,7 +229,6 @@ public function update(UpdateDestinationImageRequest $request, DestinationImage 
     // Remove the specified resource from storage (Route Model Binding)
     public function destroy(DestinationImage $destination_image)
     {
-
 
           // Delete images if they exist
           if (!empty($destination_image->images)) {

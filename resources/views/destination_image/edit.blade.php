@@ -3,33 +3,62 @@
 @section('content')
     <h1>Edit Images</h1>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div id="_destination" data-destination="{{ $destination_image->destination }}"></div>
+
+    <form method="GET" action="{{ route('destination-images.edit', $destination_image) }}">
+        <div class="form-group">
+            <label for="domestic_or_international">Domestic or International</label>
+            <select class="form-control" id="domestic_or_international" name="domestic_or_international" onchange="this.form.submit()" required>
+                <option value="">Select Destination Type</option>
+                <option value="domestic" {{ $type == 'domestic' ? 'selected' : '' }}>Domestic</option>
+                <option value="international" {{ $type == 'international' ? 'selected' : '' }}>International</option>
+            </select>
+            <p id="domestic_or_internationalErr" class="text-danger small"></p>
+        </div>
+    </form>
 
 
     <form action="{{ route('destination-images.update', $destination_image->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
-        <!-- Destination Dropdown -->
-        <div class="form-group">
-            <label for="destination">Destination</label>
-            <select class="form-control" name="destination" id="destination" required>
-                <option value="">Select Destination</option>
-                <!-- Add options dynamically here -->
-            </select>
-            @error('destination')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
+
+        <input type="hidden" name="domestic_or_international" value="{{ !empty($type)? $type : '' }}">
+        
 
         <div class="form-group">
-            <label for="domestic_or_international">Domestic or International</label>
-            <select class="form-control" id="domestic_or_international" name="domestic_or_international" required>
-                <option value="domestic" {{$destination_image->domestic_or_international === "domestic" ? 'selected' : '' }} >Domestic</option>
-                <option value="international" {{$destination_image->domestic_or_international === "international" ? 'selected' : ''}}>International</option>
-            </select>
-            <p id="domestic_or_internationalErr" class="text-danger small"></p>
+            <label for="destination">Select Destination</label>
+            <div class="input-group">
+                <select class="form-control" name="destination" id="destination" required>
+                    <option value="">Select Destination</option>
+                    @foreach($destinations as $destination)
+                        <option value="{{ $destination->destination_name }}" {{($destination->destination_name == $destination_image->destination)? 'selected' : ''}} >{{ $destination->destination_name }}</option>
+                    @endforeach
+                </select>
+                <div class="input-group-append">
+
+                    <a href="{{ route('destinations.create', ['redirect_back_to' => url()->current()]) }}" 
+                        class="btn btn-primary" type="button">
+                         <i class="fas fa-plus"></i>
+                     </a>
+
+                </div>
+            </div>
+            <p id="selected_destinationErr" class="text-danger small"></p>
         </div>
+
+
+
 
         <!-- Display Existing Images with Remove Buttons -->
         <div class="form-group">
