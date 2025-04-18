@@ -8,6 +8,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CancellationPolicyController;
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\DestinationGalleryController;
 use App\Http\Controllers\DestinationImageController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeroSectionVideoController;
@@ -80,6 +81,9 @@ Route::middleware("auth")->group(function(){
     Route::resource('counters', CounterController::class);
 
     Route::resource('resorts', ResortController::class);
+
+
+    Route::resource('destination-galleries', DestinationGalleryController::class);
     
     Route::get('logout', [AuthController::class, "logout"])->name("dashboard.logout");
 

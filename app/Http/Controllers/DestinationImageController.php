@@ -15,15 +15,15 @@ class DestinationImageController extends Controller
     // Display a listing of the resource
     public function index()
     {
-        if(!empty(request()->input('destination_type'))){
-            $images = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->latest()->get();
 
-            return view('weekend_gateway.index', compact('images'));
+        if(!empty(request()->input('destination_type'))){
+            if((request()->input("destination_type") == ["weekend_gateway"]) || (request()->input("destination_type") == "weekend_gateway") ){
+                $images = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->latest()->get();
+                return view('weekend_gateway.index', compact('images'));
+            }
         }
 
         $trendingImageIds = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->pluck('id');
-
-        // return response()->json($trendingImageIds);
 
         $images = DestinationImage::whereNotIn('id', $trendingImageIds)->latest()->get();
         
@@ -34,10 +34,12 @@ class DestinationImageController extends Controller
     public function create()
     {
         if(!empty(request()->input('destination_type'))) {
+        if((request()->input("destination_type") == ["weekend_gateway"]) || (request()->input("destination_type") == "weekend_gateway") ){
             $destination_type = request()->input('destination_type');
             $destinations = Destination::where('domestic_or_international', "domestic")->get();
 
             return view('weekend_gateway.create', compact('destination_type', 'destinations'));
+        }
         }
 
         $type = request()->query('domestic_or_international');
@@ -105,8 +107,9 @@ class DestinationImageController extends Controller
     public function show(DestinationImage $destination_image)
     {
         if(!empty($destination_image->destination_type)){
-
-            return view('weekend_gateway.show', compact('destination_image'));
+            if((request()->input("destination_type") == ["weekend_gateway"]) || (request()->input("destination_type") == "weekend_gateway") ){
+                return view('weekend_gateway.show', compact('destination_image'));
+            }
         }
 
         return view('destination_image.show', compact('destination_image'));
@@ -115,11 +118,13 @@ class DestinationImageController extends Controller
     // Show the form for editing the specified resource (Route Model Binding)
     public function edit(DestinationImage $destination_image)
     {
-        if(!empty($destination_image->destination_type)){
-            $destination_type = $destination_image->destination_type;
-            $destinations = Destination::where('domestic_or_international', "domestic")->get();
-
-            return view('weekend_gateway.edit', compact('destination_image', 'destination_type', 'destinations'));
+        if(!empty(request()->input("destination_type"))){
+            if((request()->input("destination_type") == ["weekend_gateway"]) || (request()->input("destination_type") == "weekend_gateway") ){
+                $destination_type = request()->input("destination_type");
+                $destinations = Destination::where('domestic_or_international', "domestic")->get();
+    
+                return view('weekend_gateway.edit', compact('destination_image', 'destination_type', 'destinations'));
+            }
         }
 
         $destination = Destination::where("destination_name", $destination_image->destination)->firstOrFail(); // Default type from itinerary
@@ -146,6 +151,10 @@ $destinations = $type
 public function update(UpdateDestinationImageRequest $request, DestinationImage $destination_image)
 {
     $data = $request->validated();
+
+    if(!empty($data["destination_type"])){
+        $data["destination_type"] = json_decode($data["destination_type"]);
+       }
 
     $directory = public_path('destination_images');
 
@@ -215,8 +224,10 @@ public function update(UpdateDestinationImageRequest $request, DestinationImage 
     $destination_image->update($data);
 
     if(!empty(request()->input('destination_type'))){
-        return redirect()->route('destination-images.index', ['destination_type'=> 'weekend_gateway'])
-        ->with('success', 'Images updated successfully.');
+        if((request()->input("destination_type") == ["weekend_gateway"]) || (request()->input("destination_type") == "weekend_gateway") ){
+            return redirect()->route('destination-images.index', ['destination_type'=> 'weekend_gateway'])
+            ->with('success', 'Images updated successfully.');
+        }
        }
 
     return redirect()->route('destination-images.index')
@@ -243,16 +254,17 @@ public function update(UpdateDestinationImageRequest $request, DestinationImage 
 
         $destination_image->delete();
 
-        if(!empty(request()->input('destination_type'))){
-            $images = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->latest()->get();
-
-            return redirect()->route('destination-images.index', ['destination_type'=> 'weekend_gateway'])
-        ->with('success', 'Images Deleted successfully.');
+           if(!empty(request()->input('destination_type'))){
+            if((request()->input("destination_type") == ["weekend_gateway"]) || (request()->input("destination_type") == "weekend_gateway") ){
+                return redirect()->route('destination-images.index', ['destination_type'=> 'weekend_gateway'])
+                ->with('success', 'Images updated successfully.');
+            }
            }
 
-         // Redirect to the index page with a success message
 
         return redirect()->route('destination-images.index')
             ->with('success', 'Images deleted successfully.');
     }
+
+    
 }

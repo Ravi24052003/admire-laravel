@@ -3,6 +3,16 @@
 @section('content')
     <h1>Edit Images</h1>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div id="_destination" data-destination="{{ $destination_image->destination }}"></div>
 
 
@@ -72,6 +82,7 @@
 
         <input type="hidden" name="public_images" id="public_images" value='@json($destination_image->public_images)'>
 
+        <input type="hidden" name="destination_type" value='["weekend_gateway"]'>
 
         <button type="submit" class="btn btn-primary">Update</button>
     </form>

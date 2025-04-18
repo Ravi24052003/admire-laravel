@@ -13,7 +13,7 @@
     </div>
 @endif
 
-    <div id="_destination" data-destination="{{ $destination_image->destination }}"></div>
+    <div id="_destination" data-destination="{{ $destination_image->destination }}" data-destination_type="{{json_encode($destination_image->destination_type)}}"></div>
 
     <form method="GET" action="{{ route('destination-images.edit', $destination_image) }}">
         <div class="form-group">
@@ -91,6 +91,34 @@
         <input type="hidden" name="removed_images" id="removed_images">
 
         <input type="hidden" name="public_images" id="public_images" value='@json($destination_image->public_images)'>
+
+
+
+        <div class="checkbox-group">
+
+            <label>
+                <input type="checkbox" id="trending" value="trending" {{in_array("trending", $destination_image->destination_type)? "checked" : ""}} > TRENDING
+              </label>
+
+              <label>
+                <input type="checkbox" id="weekend" value="weekend" {{in_array("weekend", $destination_image->destination_type)? "checked" : ""}} > WEEKEND
+              </label>
+
+              <label>
+                <input type="checkbox" id="gateway" value="gateway" {{in_array("gateway", $destination_image->destination_type)? "checked" : ""}} > GATEWAY
+              </label>
+
+            <label>
+              <input type="checkbox" id="domestic" value="domestic" {{in_array("domestic", $destination_image->destination_type)? "checked" : ""}} > DOMESTIC
+            </label>
+            <label>
+              <input type="checkbox" id="international" value="international" {{in_array("international", $destination_image->destination_type)? "checked" : ""}} > INTERNATIONAL
+            </label>
+            
+          </div>
+
+          <input type="hidden" name="destination_type" id="destination_type">
+
 
         <button type="submit" class="btn btn-primary">Update</button>
     </form>

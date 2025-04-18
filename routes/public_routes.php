@@ -49,3 +49,7 @@ Route::get('public-resorts', [PublicController::class, 'getResorts']);
 
 Route::get('public-weekend-gateway-destinations', [PublicController::class, 'getWeekendGatewayDestinations']);
 Route::get('public-weekend-gateway-itineraries/{destination}', [PublicController::class, 'getWeekendGatewayDestinationItineraries']);
+
+Route::get('public-destination-galleries/{destination}', [PublicController::class, 'getPublicGalleriesByDestination']);
+
+Route::get('public-trending-destinations-images', [PublicController::class, 'getTrendingDestinationsImages']);

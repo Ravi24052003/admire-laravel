@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateDestinationImageRequest extends FormRequest
+class UpdateDestinationGalleryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,13 @@ class UpdateDestinationImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'destination' => 'sometimes|string|unique:destination_images,destination,'.$this->route("destination_image")->id,
-            'removed_images' => "nullable|string",
-            'public_images' => "nullable|string",
-            "domestic_or_international" => "sometimes|in:domestic,international",
-            'images' => "nullable",
+            'destination' => 'sometimes|string',
+            'domestic_or_international' => 'sometimes|in:domestic,international',
+            'gallery_type' => 'nullable|in:resort,adventure,culture,activity,destination',
+            'removed_images' => 'nullable|string',
+            'public_images' => 'nullable|string',
             'images_files.*' => 'sometimes|image',
-            'destination_type' => 'sometimes'
+            'visibility' => 'sometimes|in:private,public'
         ];
     }
 }

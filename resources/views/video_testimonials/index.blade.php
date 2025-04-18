@@ -18,7 +18,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Video</th>
+                    <th>Video Id</th>
                     <th>Title</th>
                     <th>Visibility</th>
                     <th>Actions</th>
@@ -28,12 +28,13 @@
                 @foreach($video_testimonials as $testimonial)
                 <tr>
                     <td>
-                        @if($testimonial->video_url)
-                            <video width="200" controls>
+                       {{-- @if($testimonial->video_url)
+                            <video height="100" controls>
                                 <source src="{{ asset($testimonial->video_url) }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                        @endif
+                        @endif --}}
+                        {{$testimonial->id}}
                     </td>
 
 

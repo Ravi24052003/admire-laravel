@@ -2,6 +2,18 @@
 
 @section('content')
     <h1>Upload Images</h1>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
     <form action="{{ route('destination-images.store', ['destination_type'=>'weekend_gateway']) }}" method="POST" enctype="multipart/form-data">
         @csrf
 

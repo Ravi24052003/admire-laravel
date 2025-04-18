@@ -176,6 +176,34 @@
                       </ul>
                   </div>
               </li>
+
+
+
+
+
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#destination_gallery">
+                    <i class="fas fa-globe-americas"></i>
+
+                    <p>Destination Gallery</p>
+                    <span class="caret"></span>
+                </a>
+                <div class="collapse" id="destination_gallery">
+                    <ul class="nav nav-collapse">
+                        <li>
+                            <a href="{{ route('destination-galleries.index') }}">
+                                <span class="sub-item">Destination Gallery</span>
+                            </a>
+                        </li>
+                      
+                    </ul>
+                </div>
+            </li>
+
+
+
+
   
   
                <!-- Destination Images Section -->

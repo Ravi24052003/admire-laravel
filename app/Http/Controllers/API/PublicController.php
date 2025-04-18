@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ItineraryResource;
 use App\Models\Blog;
 use App\Models\Counter;
+use App\Models\DestinationGallery;
 use App\Models\DestinationImage;
 use App\Models\Gallery;
 use App\Models\HeroSectionVideo;
@@ -264,10 +265,7 @@ public function getDestinationImages($destination) {
 public function getDomesticDestinationsImages()
 {
 
-    $trendingImageIds = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->pluck('id');
-
-    $destinationsImages = DestinationImage::whereNotIn('id', $trendingImageIds)
-                        ->where('domestic_or_international', 'domestic')
+    $destinationsImages = DestinationImage::where('domestic_or_international', 'domestic')
                         ->select([
                         'id',
                         'domestic_or_international',
@@ -288,9 +286,7 @@ public function getDomesticDestinationsImages()
 
 public function getInternationalDestinationsImages()
 {
-    $trendingImageIds = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->pluck('id');
-
-    $destinationsImages = DestinationImage::whereNotIn('id', $trendingImageIds)
+    $destinationsImages = DestinationImage::where('domestic_or_international', 'international')
                             ->select([
                             'id',
                             'domestic_or_international',
@@ -473,5 +469,38 @@ public function getWeekendGatewayDestinationItineraries($destination){
     ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
+
+public function getPublicGalleriesByDestination($destination)
+{
+    $galleries = DestinationGallery::where('destination', $destination)
+        ->where('visibility', 'public')
+        ->select([
+            'id',
+            'domestic_or_international',
+            'destination',
+            'gallery_type',
+            'public_images'
+        ])
+        ->latest()
+        ->get();
+
+    return response()->json($galleries, 200)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
+
+public function getTrendingDestinationsImages(){
+    $destinations = DestinationImage::whereJsonContains('destination_type', ['trending'])
+    ->latest()
+    ->get();
+
+return response()->json($destinations, 200)
+    ->header('Access-Control-Allow-Origin', '*')
+    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
 
 }
