@@ -120,6 +120,11 @@
   
   // Function to update the hidden field
   function updateHiddenField() {
+    if(destinationTypeValues.length == 0){
+      destinationType.value = "";
+      alert("Please select at least one destination type");
+      return;
+    }
     destinationType.value = JSON.stringify(destinationTypeValues);
     console.log('Updated hidden field:', destinationType.value);
   }

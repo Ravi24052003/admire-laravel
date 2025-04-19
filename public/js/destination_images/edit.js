@@ -68,9 +68,17 @@ console.log("DbDestinationType", JSON.parse(dBDestinationType));
   
   // Get the hidden input field
   const destinationType = document.getElementById('destination_type');
+
+  destinationType.value = JSON.stringify(destinationTypeValues);
   
   // Function to update the hidden field
   function updateHiddenField() {
+    if(destinationTypeValues.length == 0){
+      destinationType.value = "";
+      alert("Please select at least one destination type");
+      return;
+    }
+    
     destinationType.value = JSON.stringify(destinationTypeValues);
     console.log('Updated hidden field:', destinationType.value);
   }
