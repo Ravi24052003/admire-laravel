@@ -384,7 +384,7 @@
             
             
             
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#weekend_gateway">
                     <i class="fas fa-umbrella-beach text-primary"></i>
 
@@ -407,7 +407,7 @@
                       
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             
 
   

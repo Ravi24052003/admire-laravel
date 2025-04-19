@@ -58,7 +58,7 @@
 
         <div class="form-group">
             <label for="images">Images</label>
-            <input type="file" name="images_files[]" id="images" multiple class="form-control" accept="image/*">
+            <input type="file" name="images_files[]" id="images" multiple class="form-control" accept="image/*" required>
             @error('images_files')
             <div class="text-danger">{{ $message }}</div>
         @enderror

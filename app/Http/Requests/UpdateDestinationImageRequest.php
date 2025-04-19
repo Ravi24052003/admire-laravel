@@ -28,7 +28,7 @@ class UpdateDestinationImageRequest extends FormRequest
             "domestic_or_international" => "sometimes|in:domestic,international",
             'images' => "nullable",
             'images_files.*' => 'sometimes|image',
-            'destination_type' => 'sometimes'
+            'destination_type' => 'required'
         ];
     }
 }

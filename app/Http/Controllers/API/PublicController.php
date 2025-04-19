@@ -439,7 +439,7 @@ public function getResorts()
 
 
 public function getWeekendGatewayDestinations(){
-    $destinations = DestinationImage::whereJsonContains('destination_type', ['weekend_gateway'])->latest()->get();
+    $destinations = DestinationImage::whereJsonContains('destination_type', ["weekend", "gateway"])->latest()->get();
 
     return response()->json($destinations, 200)
     ->header('Access-Control-Allow-Origin', '*')
