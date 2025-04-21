@@ -237,7 +237,7 @@ public function getDestinationVideo($destination) {
 
 
 public function getGalleryImages(){
-    $gallery = Gallery::where('visibility', 'public')->get();
+    $gallery = Gallery::where('visibility', 'public')->latest()->get();
 
     return response()->json($gallery, 200)
         ->header('Access-Control-Allow-Origin', '*')
