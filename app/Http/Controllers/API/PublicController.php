@@ -494,6 +494,7 @@ public function getPublicGalleriesByDestination($destination)
 public function getTrendingDestinationsImages(){
     $destinations = DestinationImage::whereJsonContains('destination_type', ['trending'])
     ->latest()
+    ->limit(8)
     ->get();
 
 return response()->json($destinations, 200)

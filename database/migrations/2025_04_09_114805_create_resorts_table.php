@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('resorts', function (Blueprint $table) {
             $table->id();
-            $table->string('image')->nullable();
+            $table->json('images');
+            $table->json('public_images')->default('[]');
             $table->string('title');
             $table->enum('visibility', ['private', 'public'])->default('private');
             $table->string('discount')->nullable();

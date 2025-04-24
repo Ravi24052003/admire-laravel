@@ -16,13 +16,55 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
-                    @if($resort->image)
-                        <img src="{{ asset($resort->image) }}" alt="{{ $resort->title }}" class="img-fluid">
+             
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="card-body">
+                    @if(count($resort->images ?? []) > 0)
+                        <div class="row">
+                            @foreach($resort->images as $image)
+                                <div class="col-md-3 mb-4">
+                                    <div class="card h-100">
+                                        <img src="{{ asset($image) }}" class="card-img-top" alt="Gallery Image" style="height: 200px; object-fit: cover;">
+                                        <div class="card-body">
+                                            @if(in_array($image, $resort->public_images ?? []))
+                                                <span class="badge bg-success mb-2">Public</span>
+                                            @else
+                                                <span class="badge bg-secondary mb-2">Private</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     @else
-                        <div class="text-center py-4 bg-light">No Image</div>
+                        <div class="alert alert-info">No images found.</div>
                     @endif
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div class="col-md-8">
                     <h2>{{ $resort->title }}</h2>
                     <p><strong>Visibility:</strong> {{ $resort->visibility ? 'Visible' : 'Hidden' }}</p>

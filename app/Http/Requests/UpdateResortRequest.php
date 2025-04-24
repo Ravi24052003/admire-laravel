@@ -23,9 +23,12 @@ class UpdateResortRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'image_file' => 'nullable|image',
+            'images' => "nullable",
+            'images_files.*' => 'sometimes|image',
             'visibility' => 'required|in:private,public',
             'discount' => 'nullable|string|max:50',
+            'removed_images' => "nullable|string",
+            'public_images' => "nullable|string",
         ];
     }
 }

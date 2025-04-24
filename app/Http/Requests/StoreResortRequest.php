@@ -23,9 +23,11 @@ class StoreResortRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'image_file' => 'required|image',
+            'images' => "nullable",
+             'images_files.*' => 'required|image',
             'visibility' => 'required|in:private,public',
             'discount' => 'nullable|string|max:50',
+             'public_images' => 'nullable|in:private,public'
         ];
     }
 }

@@ -15,7 +15,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Image</th>
+                <th>S no.</th>
                 <th>Title</th>
                 <th>Visibility</th>
                 <th>Discount</th>
@@ -23,14 +23,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($resorts as $resort)
+            @foreach($resorts as $index=>$resort)
                 <tr>
                     <td>
-                        @if($resort->image)
-                            <img src="{{ asset($resort->image) }}" alt="{{ $resort->title }}" width="100">
-                        @else
-                            No Image
-                        @endif
+                       {{$index + 1}}
                     </td>
                     <td>{{ $resort->title }}</td>
                     <td>{{ $resort->visibility ? 'Visible' : 'Hidden' }}</td>

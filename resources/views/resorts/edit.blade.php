@@ -13,17 +13,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="current_image" class="form-label">Current Image</label>
-            @if($resort->image)
-                <img src="{{ asset($resort->image) }}" alt="{{ $resort->title }}" width="200" class="d-block mb-2">
-            @else
-                <p>No image</p>
-            @endif
-            <label for="image_file" class="form-label">New Image (Leave blank to keep current)</label>
-            <input type="file" class="form-control" id="image_file" name="image_file">
-        </div>
-
-        <div class="mb-3">
             <label for="visibility" class="form-label">Visibility</label>
             <select class="form-select" id="visibility" name="visibility" required>
                 <option value="private" {{ old('visibility', $resort->visibility ?? 'private') == 'private' ? 'selected' : '' }}>Private</option>
@@ -46,7 +35,51 @@
 
 
 
+          <!-- Display Existing Images with Remove Buttons -->
+          <div class="form-group">
+            <label>Existing Images</label>
+            <div class="existing-images d-flex flex-wrap align-items-start gap-2">
+                @foreach ($resort->images as $index => $image)
+                <div class="image-container border border-2 border-gray-500 text-center p-2 m-2 position-relative">
+                    <!-- Checkbox in the top-right corner -->
+                    <input type="checkbox" class="public-img-checkbox position-absolute" style="top: 5px; right: 5px;" data-image_path="{{ $image }}" {{ $resort->public_images && in_array($image, $resort->public_images) ? 'checked' : '' }}>
+                    <img src="{{ asset($image) }}" alt="Image" width="100" data-image-path="{{ $image }}">
+                    <br>
+                    <button type="button" class="btn btn-danger btn-sm remove-img-btn mt-2" data-image_path="{{ $image }}">Remove</button>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+
+
+
+
+           <!-- Input for Uploading New Images -->
+           <div class="form-group">
+            <label for="images">Upload New Images</label>
+            <input type="file" name="images_files[]" id="images" multiple class="form-control">
+            @error('images_files')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Hidden Input to Store Removed Image Paths as JSON -->
+        <input type="hidden" name="removed_images" id="removed_images">
+
+        <input type="hidden" name="public_images" id="public_images" value='@json($resort->public_images)'>
+
+
+
+
+
+
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('resorts.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
+@endsection
+
+
+@section("script")
+  <script src="{{asset("js/resorts/edit.js")}}"></script>
 @endsection
