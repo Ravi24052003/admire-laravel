@@ -10,6 +10,7 @@ use App\Http\Controllers\CounterController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\DestinationGalleryController;
 use App\Http\Controllers\DestinationImageController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeroSectionVideoController;
 use App\Http\Controllers\ImageAndTextTestimonialController;
@@ -82,9 +83,10 @@ Route::middleware("auth")->group(function(){
 
     Route::resource('resorts', ResortController::class);
 
-
     Route::resource('destination-galleries', DestinationGalleryController::class);
     
+    Route::resource('footers', FooterController::class);
+
     Route::get('logout', [AuthController::class, "logout"])->name("dashboard.logout");
 
     Route::view('dashboard-home', 'dashboard_home')->name("dashboard.home");

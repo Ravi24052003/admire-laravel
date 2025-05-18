@@ -8,6 +8,7 @@ use App\Models\Blog;
 use App\Models\Counter;
 use App\Models\DestinationGallery;
 use App\Models\DestinationImage;
+use App\Models\Footer;
 use App\Models\Gallery;
 use App\Models\HeroSectionVideo;
 use App\Models\ImageAndTextTestimonial;
@@ -502,6 +503,18 @@ return response()->json($destinations, 200)
     ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
+
+
+public function getFooterLinks()
+{
+    $footerLinks = Footer::where("visibility", "public")->latest()->get();
+    
+    return response()->json($footerLinks, 200)
+      ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
 
 
 }

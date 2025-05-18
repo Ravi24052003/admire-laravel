@@ -53,3 +53,5 @@ Route::get('public-weekend-gateway-itineraries/{destination}', [PublicController
 Route::get('public-destination-galleries/{destination}', [PublicController::class, 'getPublicGalleriesByDestination']);
 
 Route::get('public-trending-destinations-images', [PublicController::class, 'getTrendingDestinationsImages']);
+
+Route::get('public-get-footer', [PublicController::class, 'getFooterLinks']);
